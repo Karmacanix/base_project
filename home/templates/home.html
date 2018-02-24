@@ -1,0 +1,25 @@
+{% extends "site-base.html" %}
+
+{% load static %}
+{% load account %}
+{% load i18n %}
+
+{% block head_title %}{% trans "Home" %}{% endblock %}
+
+{% block content %}
+
+  {% if user.is_authenticated %}
+  <div class="w3-container w3-half w3-margin-top">
+    <header class="w3-container">
+      <h1>{% trans "My Dashboard" %}</h1>
+    </header>
+    <div class="w3-row-padding w3-margin-bottom">
+      <p>Welcome back {% user_display user %}</p>
+    </div>
+  {% else %}
+    <div class="w3-row-padding w3-margin-bottom">
+      <p>Hi there, welcome to Workar, please <a href="{% url 'account_login' %}"><i class="fa fa-users fa-fw"></i>&nbsp; Sign In</a> or <a href="{% url 'account_signup' %}"><i class="fa fa-eye fa-fw"></i>&nbsp; Sign Up</a></p>
+    </div>
+  {% endif %}
+
+{% endblock %}
