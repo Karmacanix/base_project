@@ -1,10 +1,12 @@
 a starting django project that has:
-- home page
+- home page with sidebar navigation menu
 - identity and access management
-  - register
-    - includes an email for user to click link and finish registration (email verification process)
+  - register (includes email verification)
   - log-in
   - log-out
   - reset password
-- basic user settings (change email, change password) 
+- basic user settings
+  - change/add email address(es)
+  - change password
 - styled using W3 CSS
+- basic messaging e.g.: successful login
