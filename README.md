@@ -13,12 +13,12 @@ a starting django project that has:
 
 
 install instructions (needs to be fleshed out with actual code)
-  set-up virtual environment
-  download git
-  install requirements
-  set-up super user
-  migrate
-  run server
+- set-up virtual environment
+- download git
+- install requirements
+- set-up super user
+- migrate
+- run server
 
 notes
 - emails are being sent to the console atm via a dummy backend
