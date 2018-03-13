@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-    'bootstrapform',
+    'invitations',
 
     #me
     'home',
@@ -147,3 +147,5 @@ SITE_ID = 1
 LOGIN_REDIRECT_URL = 'home'
 
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+# Add to settings.py
+ACCOUNT_ADAPTER = 'invitations.models.InvitationsAdapter'
