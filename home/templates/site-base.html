@@ -24,7 +24,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 <!-- Top container -->
 <div class="w3-bar w3-top w3-black w3-large" style="z-index:4">
   <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" onclick="w3_open();"><i class="fa fa-bars"></i> &nbsp;Menu</button>
-  <span class="w3-bar-item w3-right">Karmacanix</span>
+  <span class="w3-bar-item w3-right">Workar</span>
 </div>
 
 <!-- Sidebar/menu -->
@@ -48,6 +48,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
   <div class="w3-bar-block">
     <a href="{% url 'home' %}" class="w3-bar-item w3-button w3-padding"><i class="fa fa-home fa-fw"></i>&nbsp; Home</a>
     {% if user.is_authenticated %}
+    <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-handshake-o fa-fw"></i>&nbsp; Invite</a>
       <button class="w3-button w3-block w3-left-align" onclick="myAccFunc()"><i class="fa fa-cog fa-fw"></i>&nbsp; Settings</button>
       <div id="demoAcc" class="w3-bar-block w3-hide w3-white w3-card-4">
         <a href="{% url 'account_email' %}" class="w3-bar-item w3-button"><i class="fa fa-envelope fa-fw"></i>&nbsp; Change E-mail</a>
@@ -85,16 +86,26 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
   {% endblock %}
   
   <hr>
-    <!-- Footer -->
-  <footer class="w3-container w3-padding-16 w3-light-grey">
-    <hr>
-    <p>Karmacanix 2017</p>
-  </footer>
+  
+  <!-- Footer -->
+  <style>
+  .footer {
+      position: fixed;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      background-color: grey;
+      color: black;
+      text-align: center;
+  }
+  </style>
+
+  <div class="footer">
+    <p><strong>Developed by Karmacanix 2018</strong></p>
+  </div>
 
   <!-- End page content -->
 </div>
-
-
 
 <script>
 // Get the Sidebar

@@ -16,10 +16,22 @@
     <div class="w3-row-padding w3-margin-bottom">
       <p>Welcome back {% user_display user %}</p>
     </div>
+  </div>
   {% else %}
-    <div class="w3-row-padding w3-margin-bottom">
-      <p>Hi there, welcome to Workar, please <a href="{% url 'account_login' %}"><i class="fa fa-users fa-fw"></i>&nbsp; Sign In</a> or <a href="{% url 'account_signup' %}"><i class="fa fa-eye fa-fw"></i>&nbsp; Sign Up</a></p>
+  <div class="w3-container w3-half w3-margin-top">
+    <header class="w3-container">
+      <h1>{% trans "Welcome to Workar" %}</h1>
+    </header>
+    <div class="w3-container w3-card-4">
+      <p>{% trans "Workar is a timesheet and invoicing system. Workar is designed to be a simple to use, cost effective approach to allow staff to record any resources and time they have used on a customers project. After the boss or accoutn manager has approved the resoures used, Workar will automatically produce the relevant invoices. Made for all types of businesses, big or small." %}</p>
+      <p>{% trans "To use Workar:" %}</p>
+      <ul>
+        <li>{% trans "Existing users " %} <a href="{% url 'account_login' %}">{% trans "sign in" %}</a>{% trans " here." %}</li>
+        <li>{% trans "New users " %}<a href="{% url 'account_signup' %}">{% trans "sign up" %}</a>{% trans " here." %}</li>
+      </ul>
+      <p>{% trans "More information (pricing, features, overview) can be found when I can be bothered creating the relevant content." %}</p>
     </div>
+  </div>
   {% endif %}
 
 {% endblock %}
