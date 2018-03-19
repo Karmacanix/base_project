@@ -52,8 +52,21 @@
         <p>{{ project.created }}</p>
       </div>
     </div>
+    <div class="w3-row">
+      <div class="w3-col m4 l3">
+        <p><strong>Approvers:</strong></p>
+      </div>
+      <div class="w3-col m8 l9">  
+        <p>
+          {% for approver in project.approvers.all %}
+            {{ approver.email }}{% if forloop.last %}.{% else%},{% endif %}
+          {% endfor %}
+        </p>
+      </div>
+    </div>
     <a class="w3-button w3-section w3-blue w3-ripple" href="{% url 'projects:project-update' project.id %}">{% trans "Edit" %}</a>
     <a class="w3-button w3-section w3-blue w3-ripple" href="{% url 'projects:project-delete' project.id %}">{% trans "Delete" %}</a>
+    <a class="w3-button w3-section w3-blue w3-ripple" href="{% url 'projects:project-approvers-update' project.id %}">{% trans "Approvers" %}</a>
   </div>
 </div>
 {% endblock %}

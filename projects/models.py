@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from invitations.models import Invitation
 
 # Create your models here.
 class Project(models.Model):
@@ -15,6 +16,7 @@ class Project(models.Model):
 	end = models.DateField()
 	created = models.DateTimeField(auto_now_add=True)
 	updated = models.DateTimeField(auto_now=True)
+	approvers = models.ManyToManyField(Invitation)
 
 	#metadata
 	class Meta:

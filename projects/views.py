@@ -1,12 +1,14 @@
+# django
 from django.shortcuts import render
-
-# Create your views here.
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
-from .models import Project
-from .forms import ProjectForm
 
+# this app
+from .models import Project
+from .forms import ProjectForm, ProjectApproversForm
+
+# Create your views here.
 class ProjectList(ListView):
     model = Project
 
@@ -24,3 +26,12 @@ class ProjectUpdate(UpdateView):
 class ProjectDelete(DeleteView):
     model = Project
     success_url = reverse_lazy('projects:project-list')
+
+class ProjectApproversCreate(CreateView):
+    model = Project
+    form_class = ProjectApproversForm
+
+class ProjectApproversUpdate(UpdateView):
+    model = Project
+    form_class = ProjectApproversForm
+    template_name_suffix = '_approvers_form'

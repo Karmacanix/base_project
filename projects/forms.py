@@ -10,3 +10,12 @@ class ProjectForm(forms.ModelForm):
 			'start': forms.SelectDateWidget(),
 			'end': forms.SelectDateWidget()
 		}
+
+class ProjectApproversForm(forms.ModelForm):
+	template_name = "project_approvers_form.html"
+	class Meta:
+		model = Project
+		fields = ['approvers']
+		widgets = {
+			'approvers': forms.CheckboxSelectMultiple(),
+		}
