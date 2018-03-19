@@ -1,0 +1,20 @@
+{% extends "site-base.html" %}
+
+{% load static %}
+{% load account %}
+{% load i18n %}
+
+{% block head_title %}{% trans "Confirm Project Delete" %}{% endblock %}
+
+{% block content %}
+
+<h1>Delete Project</h1>
+
+<p>Are you sure you want to delete the project: {{ project }}?</p>
+
+<form action="" method="POST">
+  {% csrf_token %}
+  <input type="submit" action="" value="Yes, delete." />
+</form>
+
+{% endblock %}

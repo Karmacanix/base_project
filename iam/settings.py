@@ -46,6 +46,7 @@ INSTALLED_APPS = [
 
     #me
     'home',
+    'projects',
 
     'django.contrib.admin',
     'django.contrib.auth',

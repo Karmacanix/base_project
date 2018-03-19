@@ -1,0 +1,24 @@
+{% extends "site-base.html" %}
+
+{% load static %}
+{% load account %}
+{% load i18n %}
+
+{% block head_title %}{% trans "Project Details" %}{% endblock %}
+
+{% block content %}
+  <h1>Project: {{ project.name }}</h1>
+  <p><strong>Purpose:</strong>{{ project.desc }}</a></p> 
+  <p><strong>Start:</strong> {{ project.start }}</p>
+  <p><strong>End:</strong> {{ project.end }}</p> 
+  <p><strong>Active:</strong> {{ project.is_active }}</p>  
+  <p><strong>Updated:</strong> {{ project.updated }}</p> 
+  <p><strong>Created:</strong> {{ project.created }}</p>  
+
+
+  <h5>to add</h5>
+    <ul>
+      <li>delete button</li>
+      <li>edit button</li>
+    </ul>
+{% endblock %}

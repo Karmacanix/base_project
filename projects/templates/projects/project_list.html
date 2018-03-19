@@ -1,0 +1,32 @@
+{% extends "site-base.html" %}
+
+{% load static %}
+{% load account %}
+{% load i18n %}
+
+{% block head_title %}{% trans "Project List" %}{% endblock %}
+
+{% block content %}
+    <h1>Project List</h1>
+
+    {% if project_list %}
+    <ul>
+
+      {% for project in project_list %}
+      <li>
+        <a href="{{ project.get_absolute_url }}">{{ project.name }}</a> ({{project.desc}})
+      </li>
+      {% endfor %}
+
+    </ul>
+    {% else %}
+      <p>There are no projects.</p>
+    {% endif %} 
+
+    <h5>to add</h5>
+    <ul>
+      <li>add new project button</li>
+      <li>grid with active, start, end and countdown</li>
+      <li> authentication</li>
+    </ul>      
+{% endblock %}
