@@ -1,8 +1,11 @@
 # django
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
+
+# 3rd party add-ons
+from invitations.models import Invitation
 
 # this app
 from .models import Project

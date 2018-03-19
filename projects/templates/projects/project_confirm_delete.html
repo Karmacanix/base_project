@@ -15,6 +15,7 @@
   	<p>Are you sure you want to delete the project: {{ project }}?</p>
   	<form action="" method="POST">
   		{% csrf_token %}
+      <a class="w3-button w3-section w3-red w3-ripple" href="{{ project.get_absolute_url }}">{% trans "Cancel" %}</a>
   		<input class="w3-button w3-section w3-blue w3-ripple" type="submit" action="" value="{% trans 'Delete' %}" />
   	</form>
   </div>

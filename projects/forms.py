@@ -1,5 +1,6 @@
 from django import forms
 from .models import Project
+from invitations.models import Invitation
 
 class ProjectForm(forms.ModelForm):
 	class Meta:
@@ -12,7 +13,6 @@ class ProjectForm(forms.ModelForm):
 		}
 
 class ProjectApproversForm(forms.ModelForm):
-	template_name = "project_approvers_form.html"
 	class Meta:
 		model = Project
 		fields = ['approvers']
