@@ -5,6 +5,7 @@ from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from .models import Project
+from .forms import ProjectForm
 
 class ProjectList(ListView):
     model = Project
@@ -14,12 +15,12 @@ class ProjectDetail(DetailView):
 
 class ProjectCreate(CreateView):
     model = Project
-    fields = ['name','desc','start','end']
+    form_class = ProjectForm
 
 class ProjectUpdate(UpdateView):
     model = Project
-    fields = ['name','desc','start','end','is_active']
+    form_class = ProjectForm
 
 class ProjectDelete(DeleteView):
     model = Project
-    success_url = reverse_lazy('projects')
+    success_url = reverse_lazy('projects:project-list')

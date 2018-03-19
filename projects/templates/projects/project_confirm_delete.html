@@ -4,17 +4,19 @@
 {% load account %}
 {% load i18n %}
 
-{% block head_title %}{% trans "Confirm Project Delete" %}{% endblock %}
+{% block head_title %}{% trans "Confirm Delete" %}{% endblock %}
 
 {% block content %}
-
-<h1>Delete Project</h1>
-
-<p>Are you sure you want to delete the project: {{ project }}?</p>
-
-<form action="" method="POST">
-  {% csrf_token %}
-  <input type="submit" action="" value="Yes, delete." />
-</form>
-
+<div class="w3-container w3-half w3-margin-top">
+  <header class="w3-container">
+    <h1>{% trans "Delete Project" %}</h1>
+  </header>
+  <div class="w3-container w3-card-4">
+  	<p>Are you sure you want to delete the project: {{ project }}?</p>
+  	<form action="" method="POST">
+  		{% csrf_token %}
+  		<input class="w3-button w3-section w3-blue w3-ripple" type="submit" action="" value="{% trans 'Delete' %}" />
+  	</form>
+  </div>
+</div>
 {% endblock %}

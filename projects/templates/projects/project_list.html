@@ -7,26 +7,53 @@
 {% block head_title %}{% trans "Project List" %}{% endblock %}
 
 {% block content %}
-    <h1>Project List</h1>
-
+<div class="w3-container w3-half w3-margin-top">
+  <header class="w3-container">
+    <h1>{% trans "Project List" %}</h1>
+  </header>
+  <div class="w3-container w3-card-4">
+    <br>
     {% if project_list %}
-    <ul>
-
-      {% for project in project_list %}
-      <li>
-        <a href="{{ project.get_absolute_url }}">{{ project.name }}</a> ({{project.desc}})
-      </li>
-      {% endfor %}
-
-    </ul>
+    <table class="w3-table-all w3-hoverable">
+      <thead>
+        <tr class="w3-grey">
+          <th>{% trans "ID" %}</th>
+          <th>{% trans "Name" %}</th>
+          <th>{% trans "Active" %}</th>
+          <th>{% trans "Start" %}</th>
+          <th>{% trans "End" %}</th>
+          <th>{% trans "Countdown" %}</th>
+          <th>{% trans "Details" %}</th>
+          <th>{% trans "Tasks" %}</th>
+          <th>{% trans "Team" %}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for project in project_list %}
+        <tr>
+          <td>{{ project.id }}</td>
+          <td>{{ project.name }}</td>
+          <td>
+            {% if project.is_active %}
+              <i class="fa fa-check-circle" style="color:green;"></i>
+            {% else %}
+              <i class="fa fa-check-circle" style="color:red;"></i>
+            {% endif %}
+          </td>
+          <td>{{ project.start }}</td>
+          <td>{{ project.end }}</td>
+          <td>{{ project.start|timesince:project.end }}</td>
+          <td><a href="{{ project.get_absolute_url }}">Details...</a></td>
+          <td>Tasks...</td>
+          <td>Team...</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
     {% else %}
       <p>There are no projects.</p>
-    {% endif %} 
-
-    <h5>to add</h5>
-    <ul>
-      <li>add new project button</li>
-      <li>grid with active, start, end and countdown</li>
-      <li> authentication</li>
-    </ul>      
+    {% endif %}
+      <a class="w3-button w3-section w3-blue w3-ripple" href="{% url 'projects:project-create' %}">{% trans "Create New" %}</a>
+  </div>
+</div>
 {% endblock %}
