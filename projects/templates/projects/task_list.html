@@ -1,0 +1,43 @@
+{% extends "site-base.html" %}
+
+{% load static %}
+{% load account %}
+{% load i18n %}
+
+{% block head_title %}{% trans "Task List" %}{% endblock %}
+
+{% block content %}
+<div class="w3-container w3-half w3-margin-top">
+  <header class="w3-container">
+    <h1>{% trans "Task List" %}</h1>
+  </header>
+  <div class="w3-container w3-card-4">
+    <br>
+    {% if task_list %}
+    <table class="w3-table-all w3-hoverable">
+      <thead>
+        <tr class="w3-grey">
+          <th>{% trans "ID" %}</th>
+          <th>{% trans "Title" %}</th>
+          <th>{% trans "Project" %}</th>
+          <th>{% trans "Description" %}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for task in task_list %}
+        <tr>
+          <td>{{ task.id }}</td>
+          <td><a class="w3-text-indigo" href="{{ task.get_absolute_url }}">{{ task.title }}</a></td>
+          <td><a class="w3-text-indigo" href="{% url 'projects:project-list' %}">{{ task.project }}</a></td>
+          <td>{{ task.desc }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+      <p>There are no tasks.</p>
+    {% endif %}
+    <a class="w3-button w3-section w3-blue w3-ripple" href="{% url 'projects:task-create' %}">{% trans "Create New" %}</a>
+  </div>
+</div>
+{% endblock %}

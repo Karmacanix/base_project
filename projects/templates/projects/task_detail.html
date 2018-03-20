@@ -1,0 +1,44 @@
+{% extends "site-base.html" %}
+
+{% load static %}
+{% load account %}
+{% load i18n %}
+
+{% block head_title %}{% trans "Task Details" %}{% endblock %}
+
+{% block content %}
+<div class="w3-container w3-half w3-margin-top">
+  <header class="w3-container">
+    <h1>{% trans "Task Details" %}</h1>
+  </header>
+  <div class="w3-container w3-card-4">
+    <div class="w3-row">
+      <div class="w3-col m4 l3">
+        <p><strong>ID:</strong></p>
+        <p><strong>Title:</strong></p>
+        <p><strong>Description:</strong></p>
+        <p><strong>Project:</strong></p>
+      </div>
+      <div class="w3-col m8 l9">
+        <p>{{ task.id }}</p>  
+        <p>{{ task.title }}</p>
+        <p>{{ task.desc }}</p>
+        <p>{{ task.project }}</p>
+      </div>
+    </div>
+    <div class="w3-row">
+      <div class="w3-col m4 l3">
+        <p><strong>Last updated:</strong></p>
+        <p><strong>Created:</strong></p>
+      </div>
+      <div class="w3-col m8 l9">  
+        <p>{{ task.updated }}</p>
+        <p>{{ task.created }}</p>
+      </div>
+    </div>
+    <a class="w3-button w3-section w3-red w3-ripple" href="{% url 'projects:task-list' %}">{% trans "Cancel" %}</a>
+    <a class="w3-button w3-section w3-blue w3-ripple" href="{% url 'projects:task-update' task.id %}">{% trans "Edit" %}</a>
+
+  </div>
+</div>
+{% endblock %}

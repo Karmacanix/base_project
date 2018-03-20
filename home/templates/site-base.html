@@ -44,7 +44,8 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
     {% if user.is_authenticated %}
     <a href="{% url 'invitations:invite-list' %}" class="w3-bar-item w3-button w3-padding"><i class="fa fa-handshake-o fa-fw"></i>&nbsp; Invite</a>
     <a href="{% url 'projects:project-list' %}" class="w3-bar-item w3-button w3-padding"><i class="fa fa-briefcase fa-fw"></i>&nbsp; Projects</a>
-      <button class="w3-button w3-block w3-left-align" onclick="myAccFunc()"><i class="fa fa-cog fa-fw"></i>&nbsp; Settings</button>
+    <a href="{% url 'projects:task-list' %}" class="w3-bar-item w3-button w3-padding"><i class="fa fa-cog fa-fw"></i>&nbsp; Tasks</a>
+      <button class="w3-button w3-block w3-left-align" onclick="myAccFunc()"><i class="fa fa-user-o fa-fw"></i>&nbsp; Settings</button>
       <div id="demoAcc" class="w3-bar-block w3-hide w3-white w3-card-4">
         <a href="{% url 'account_email' %}" class="w3-bar-item w3-button"><i class="fa fa-envelope fa-fw"></i>&nbsp; Change E-mail</a>
         <a href="{% url 'account_change_password' %}" class="w3-bar-item w3-button"><i class="fa fa-key fa-fw"></i>&nbsp; Change Password</a>

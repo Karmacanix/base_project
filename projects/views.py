@@ -8,8 +8,8 @@ from django.urls import reverse_lazy
 from invitations.models import Invitation
 
 # this app
-from .models import Project
-from .forms import ProjectForm, ProjectApproversForm
+from .models import Project, Task
+from .forms import ProjectForm, ProjectApproversForm, TaskForm, TaskFormSet
 
 # Create your views here.
 class ProjectList(ListView):
@@ -38,3 +38,17 @@ class ProjectApproversUpdate(UpdateView):
     model = Project
     form_class = ProjectApproversForm
     template_name_suffix = '_approvers_form'
+
+class TaskList(ListView):
+    model = Task
+
+class TaskDetail(DetailView):
+    model = Task
+
+class TaskCreate(CreateView):
+    model = Task
+    form_class = TaskForm
+
+class TaskUpdate(UpdateView):
+    model = Task
+    form_class = TaskForm

@@ -42,7 +42,7 @@
           <td>{{ project.start }}</td>
           <td>{{ project.end }}</td>
           <td>{{ project.start|timesince:project.end }}</td>
-          <td><a class="w3-text-indigo" href="{% url 'projects:project-list' %}">{% trans "View Tasks" %}</a></td>
+          <td><a class="w3-text-indigo" href="{% url 'projects:task-list' %}">{% trans "View Tasks" %}</a></td>
           <td><a class="w3-text-indigo" href="{% url 'projects:project-list' %}">{% trans "View Team" %}</a></td>
         </tr>
         {% endfor %}
