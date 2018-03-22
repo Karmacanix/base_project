@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     #me
     'home',
     'projects',
+    'timesheets',
 
     'django.contrib.admin',
     'django.contrib.auth',

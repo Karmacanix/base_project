@@ -1,0 +1,48 @@
+{% extends "site-base.html" %}
+
+{% load static %}
+{% load account %}
+{% load i18n %}
+
+{% block head_title %}{% trans "Time Log" %}{% endblock %}
+
+{% block content %}
+<div class="w3-container w3-half w3-margin-top">
+  <header class="w3-container">
+    <h1>{% trans "Time Log" %}</h1>
+  </header>
+  <div class="w3-container w3-card-4">
+    <br>
+    {% if timelog_list %}
+    <table class="w3-table-all w3-hoverable">
+      <thead>
+        <tr class="w3-grey">
+          <th>{% trans "ID" %}</th>
+          <th>{% trans "Project" %}</th>
+          <th>{% trans "Task" %}</th>
+          <th>{% trans "User" %}</th>
+          <th>{% trans "Work Date" %}</th>
+          <th>{% trans "Duration" %}</th>          
+        </tr>
+      </thead>
+      <tbody>
+        {% for timelog in timelog_list %}
+        <tr>
+          <td>{{ timelog.id }}</td>
+          <td><a class="w3-text-indigo" href="{{ project.get_absolute_url }}">{{ timelog.project }}</a></td>
+          <td><a class="w3-text-indigo" href="{{ task.get_absolute_url }}">{{ timelog.task }}</a></td>
+          <td>{{ timelog.task }}</td>
+          <td>{{ timelog.user }}</td>
+          <td>{{ timelog.work_date }}</td>
+          <td>{{ timelog.duration }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+      <p>There are no time log entries.</p>
+    {% endif %}
+      <a class="w3-button w3-section w3-blue w3-ripple" href="{% url 'timesheets:timelog-create' %}">{% trans "Create New" %}</a>
+  </div>
+</div>
+{% endblock %}

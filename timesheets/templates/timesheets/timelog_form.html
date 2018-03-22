@@ -1,0 +1,39 @@
+{% extends "site-base.html" %}
+
+{% load static %}
+{% load account %}
+{% load i18n %}
+
+{% block head_title %}{% trans "Time Log Form" %}{% endblock %}
+
+{% block content %}
+<div class="w3-container w3-half w3-margin-top">
+	{% if timelog %}
+<header class="w3-container">
+  <h1>{% trans "Edit time log" %}</h1>
+</header>
+{% else %}
+<header class="w3-container">
+  <h1>{% trans "Log a new time" %}</h1>
+</header>
+{% endif %}
+<form class="w3-container w3-card-4" action="" method="post">
+   {% csrf_token %}
+    <br/>
+  <table>
+  	<tbody>
+  		{% for field in form %}  		
+	  		<tr>
+	  			<td>{{ field.label }}</td>
+	  			<td><div class="w3-padding">{{ field }}</div></td>
+	  		</tr>
+  		{% endfor %}
+  	</tbody>
+  </table>
+  <a class="w3-button w3-section w3-red w3-ripple" href="{% url 'timesheets:timelog-list' %}">{% trans "Cancel" %}</a>
+    <button class="primaryAction w3-button w3-section w3-blue w3-ripple" type="submit">{% trans "Save" %}</button>
+    
+</form>
+</div>
+
+{% endblock %}
