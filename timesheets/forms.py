@@ -10,3 +10,15 @@ class TimeLogForm(forms.ModelForm):
 		widgets = {
 			'work_date': forms.SelectDateWidget(),
 		}
+
+class WeeklyTimesheetForm(forms.Form):
+	project = forms.ModelChoiceField(queryset=Project.objects.all())
+	task = forms.ModelChoiceField(queryset=Task.objects.all())
+	mon = forms.DurationField()
+	tue = forms.DurationField()
+	wed = forms.DurationField()
+	thu = forms.DurationField()
+	fri = forms.DurationField()
+	sat = forms.DurationField()
+	sun = forms.DurationField()
+

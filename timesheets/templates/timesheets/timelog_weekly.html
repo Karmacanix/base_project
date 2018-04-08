@@ -1,0 +1,68 @@
+{% extends "site-base.html" %}
+
+{% load static %}
+{% load account %}
+{% load i18n %}
+
+{% block head_title %}{% trans "Weekly Timesheet" %}{% endblock %}
+{% block extra_head %}
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.0/moment.js"></script>
+{% endblock %}
+
+{% block content %}
+<div class="w3-container w3-margin-top">
+<header class="w3-container">
+  <h1>{% trans "Week " %}{{week}}-{{year}}{% trans " timesheet" %}</h1>
+  <h3>{% trans "Starts " %} {{week_start|date:"l, jS F, Y"}}</h3>
+</header>
+
+<table id='timetable' class="w3-table-all w3-hoverable">
+  <thead>
+    <th>Project</th>
+    <th>Task</th>
+    <th>Status</th>
+    <th id="head0">Mon</th>
+    <th id="head1">Tue</th>
+    <th id="head2">Wed</th>
+    <th id="head3">Thu</th>
+    <th id="head4">Fri</th>
+    <th id="head5">Sat</th>
+    <th id="head6">Sun</th>
+    <th>-</th>
+  </thead>
+  <tbody>
+    {% for timelog in weekly_timelog %}
+      <tr>
+        <td><a class="w3-text-indigo" href="{{ timelog.get_absolute_url }}">{{ timelog.id }}</a></td>
+        <td><a class="w3-text-indigo" href="{{ timelog.project.get_absolute_url }}">{{ timelog.project }}</a></td>
+        <td><a class="w3-text-indigo" href="{{ timelog.task.get_absolute_url }}">{{ timelog.task }}</a></td>
+        <td>{{ timelog.user }}</td>
+        <td>{{ timelog.work_date }}</td>
+        <td>{{ timelog.duration }}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<form class="w3-container w3-card-4" action="" method="post">
+   {% csrf_token %}
+    <br/>
+  <a class="w3-button w3-section w3-red w3-ripple" href="{% url 'timesheets:timelog-list' %}">{% trans "Cancel" %}</a>
+    <button class="primaryAction w3-button w3-section w3-blue w3-ripple" type="submit">{% trans "Save" %}</button>
+    
+</form>
+</div>
+{% block extra_body %}
+  <script>
+  var i = 0;
+  do {
+      var eid = "head"+i;
+      var d = new Date('{{week_start|date:"d M Y"}}');
+      d.setDate(d.getDate() + i);
+      document.getElementById(eid).innerHTML = moment(d).format('ddd Do MMM');
+      i++;
+  }
+  while (i < 7);
+  </script>
+{% endblock %}
+
+{% endblock %}

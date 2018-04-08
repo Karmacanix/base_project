@@ -1,0 +1,73 @@
+{% extends "site-base.html" %}
+
+{% load static %}
+{% load account %}
+{% load i18n %}
+
+{% block head_title %}{% trans "User Invoice Profile" %}{% endblock %}
+
+{% block content %}
+<div class="w3-container w3-half w3-margin-top">
+  <header class="w3-container">
+    <h1>{% trans "User Invoice Profile" %}</h1>
+  </header>
+  <div class="w3-container w3-card-4">
+    <div class="w3-row">
+      <div class="w3-col m4 l3">
+        <p><strong>Name:</strong></p>
+        <p><strong>Description:</strong></p>
+        <p><strong>Active:</strong></p>
+      </div>
+      <div class="w3-col m8 l9">  
+        <p>{{ project.name }}</p>
+        <p>{{ project.desc }}</p>
+        {% if project.is_active %}
+          <p><i class="fa fa-check-circle" style="color:green;"></i></p>
+        {% else %}
+          <p><i class="fa fa-check-circle" style="color:red;"></i></p>
+        {% endif %}
+      </div>
+    </div>
+    <div class="w3-row">
+      <div class="w3-col m3 l3">
+        <p><strong>Start</strong></p>
+        <p>{{ project.start }}</p>
+      </div>
+      <div class="w3-col m3 l3">  
+        <p><strong>End</strong></p>
+        <p>{{ project.end }}</p>
+      </div>
+      <div class="w3-col m3 l3">  
+        <p><strong>Countdown</strong></p>
+        <p>{{ project.start|timesince:project.end }}</p>
+      </div>
+    </div>
+    <div class="w3-row">
+      <div class="w3-col m4 l3">
+        <p><strong>Last updated:</strong></p>
+        <p><strong>Created:</strong></p>
+      </div>
+      <div class="w3-col m8 l9">  
+        <p>{{ project.updated }}</p>
+        <p>{{ project.created }}</p>
+      </div>
+    </div>
+    <div class="w3-row">
+      <div class="w3-col m4 l3">
+        <p><strong>Approvers:</strong></p>
+      </div>
+      <div class="w3-col m8 l9">  
+        <p>
+          {% for approver in project.approvers.all %}
+            {{ approver.email }}{% if forloop.last %}.{% else%},{% endif %}
+          {% endfor %}
+        </p>
+      </div>
+    </div>
+    <a class="w3-button w3-section w3-red w3-ripple" href="{% url 'projects:project-list' %}">{% trans "Cancel" %}</a>
+    <a class="w3-button w3-section w3-blue w3-ripple" href="{% url 'projects:project-update' project.id %}">{% trans "Edit" %}</a>
+    <a class="w3-button w3-section w3-blue w3-ripple" href="{% url 'projects:project-delete' project.id %}">{% trans "Delete" %}</a>
+    <a class="w3-button w3-section w3-blue w3-ripple" href="{% url 'projects:project-approvers-update' project.id %}">{% trans "Approvers" %}</a>
+  </div>
+</div>
+{% endblock %}
