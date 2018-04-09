@@ -12,6 +12,7 @@
   crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.0/moment.js"></script>
   <script src="{% static 'timesheets/jquery.formset.js' %}" type="text/javascript"></script>
+  {{ timesheet_formset.media.css }}
   <script type="text/javascript">
     $(function() {
       $('#timetable tbody tr').formset({
@@ -29,8 +30,9 @@
   <h3>{% trans "Starts " %} {{week_start|date:"l, jS F, Y"}}</h3>
 </header>
 {{week_start}}
-<form class="w3-container w3-card-4" action="" method="post">
+<form class="w3-container w3-card-4" action={% url 'timesheets:weekly-timesheet' %} method="post">
   {% csrf_token %}{{ timesheet_formset.management_form }}
+  <input hidden type='week' name='week_year' value='{{week_year}}'/>
   <br/>
   <table id='timetable' class="w3-table-all w3-hoverable w3-grey">
     <thead>
@@ -84,7 +86,7 @@
   <button class="primaryAction w3-button w3-section w3-blue w3-ripple" type="submit">{% trans "Save" %}</button>
 </form>
 </div>
-
+{{ timesheet_formset.media.js }}
 {% block extra_body %}
 <script>
 function calculateTotals() {

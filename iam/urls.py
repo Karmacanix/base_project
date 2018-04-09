@@ -23,5 +23,6 @@ urlpatterns = [
     path('invitations/', include('invitations.urls', namespace='invitations')),
     path('projects/', include('projects.urls', namespace='projects')),
     path('timesheets/', include('timesheets.urls', namespace='timesheets')),
+    path('select2/', include('django_select2.urls')),
     path('', home, name='home')
 ]

@@ -17,7 +17,10 @@
 <style>
 html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 </style>
-
+  <script
+  src="https://code.jquery.com/jquery-3.3.1.js"
+  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+  crossorigin="anonymous"></script>
 <!-- body -->
 <body class="w3-light-grey">
 
@@ -45,8 +48,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
     <a href="{% url 'timesheets:timelog-list' %}" class="w3-bar-item w3-button w3-padding"><i class="fa fa-calendar fa-fw"></i>&nbsp; Timesheets</a>
     <a href="{% url 'invitations:invite-list' %}" class="w3-bar-item w3-button w3-padding"><i class="fa fa-handshake-o fa-fw"></i>&nbsp; Invite</a>
     <a href="{% url 'projects:project-list' %}" class="w3-bar-item w3-button w3-padding"><i class="fa fa-briefcase fa-fw"></i>&nbsp; Projects</a>
-    <a href="{% url 'projects:task-list' %}" class="w3-bar-item w3-button w3-padding"><i class="fa fa-cog fa-fw"></i>&nbsp; Tasks</a>
-      <button class="w3-button w3-block w3-left-align" onclick="myAccFunc()"><i class="fa fa-user-o fa-fw"></i>&nbsp; Settings</button>
+    <button class="w3-button w3-block w3-left-align" onclick="myAccFunc()"><i class="fa fa-user-o fa-fw"></i>&nbsp; Settings</button>
       <div id="demoAcc" class="w3-bar-block w3-hide w3-white w3-card-4">
         <a href="{% url 'account_email' %}" class="w3-bar-item w3-button"><i class="fa fa-file-text-o fa-fw"></i>&nbsp; Invoice Text</a>
         <a href="{% url 'account_email' %}" class="w3-bar-item w3-button"><i class="fa fa-envelope fa-fw"></i>&nbsp; Change E-mail</a>

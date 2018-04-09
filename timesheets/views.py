@@ -45,6 +45,7 @@ def WeeklyTimesheetView(request):
 	dates_of_the_week = [tue_date, wed_date, thu_date, fri_date, sat_date, sun_date]
 	timesheet_formset = WeeklyTimesheetFormset(prefix="timesheet")
 	context = {'weekly_timelog': weekly_timelog,
+				'week_year': week_year,
 				'week': week,
 				'year': year,
 				'week_start': week_start,

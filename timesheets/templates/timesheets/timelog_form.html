@@ -6,6 +6,8 @@
 
 {% block head_title %}{% trans "Time Log Form" %}{% endblock %}
 
+{% block extra_head %}{{ form.media.css }}{% endblock %}
+
 {% block content %}
 <div class="w3-container w3-half w3-margin-top">
 	{% if timelog %}
@@ -35,5 +37,5 @@
     
 </form>
 </div>
-
+{{ form.media.js }}
 {% endblock %}

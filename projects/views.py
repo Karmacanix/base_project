@@ -41,6 +41,10 @@ class ProjectApproversUpdate(UpdateView):
 
 class TaskList(ListView):
     model = Task
+    def get_queryset(self):
+        queryset = super(TaskList, self).get_queryset()
+        queryset = queryset.filter(project=self.kwargs['project'])
+        return queryset
 
 class TaskDetail(DetailView):
     model = Task
