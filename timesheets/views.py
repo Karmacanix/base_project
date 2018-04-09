@@ -1,4 +1,4 @@
-from datetime import date, datetime
+from datetime import date, datetime, timedelta
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
@@ -34,12 +34,21 @@ def WeeklyTimesheetView(request):
 	print("Year: ", year, "Week: ", week)
 	week_start = datetime.strptime(week_year + '-1', "%Y-W%W-%w")
 	print(week_start)
+	tue_date = week_start + timedelta(days=1)
+	wed_date = week_start + timedelta(days=2)
+	thu_date = week_start + timedelta(days=3)
+	fri_date = week_start + timedelta(days=4)
+	sat_date = week_start + timedelta(days=5)
+	sun_date = week_start + timedelta(days=6)
+	print(tue_date, wed_date, thu_date, fri_date, sat_date, sun_date)
 	days_of_the_week = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+	dates_of_the_week = [tue_date, wed_date, thu_date, fri_date, sat_date, sun_date]
 	timesheet_formset = WeeklyTimesheetFormset(prefix="timesheet")
 	context = {'weekly_timelog': weekly_timelog,
 				'week': week,
 				'year': year,
 				'week_start': week_start,
 				'days_of_the_week': days_of_the_week,
+				'dates_of_the_week': dates_of_the_week,
 				'timesheet_formset': timesheet_formset}
 	return render(request, 'timesheets/timelog_weekly.html', context)

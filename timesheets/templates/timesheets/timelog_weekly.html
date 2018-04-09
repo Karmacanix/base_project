@@ -28,6 +28,7 @@
   <h1>{% trans "Week " %}{{week}}-{{year}}{% trans " timesheet" %}</h1>
   <h3>{% trans "Starts " %} {{week_start|date:"l, jS F, Y"}}</h3>
 </header>
+{{week_start}}
 <form class="w3-container w3-card-4" action="" method="post">
   {% csrf_token %}{{ timesheet_formset.management_form }}
   <br/>
