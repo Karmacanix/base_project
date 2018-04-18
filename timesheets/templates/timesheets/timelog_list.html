@@ -43,7 +43,7 @@
       <p>There are no time log entries.</p>
     {% endif %}
       <a class="w3-button w3-section w3-blue w3-ripple" href="{% url 'timesheets:timelog-create' %}">{% trans "Create New" %}</a>
-      <form class="w3-container w3-card-4" action={% url 'timesheets:weekly-timesheet' %} method="post">
+      <form class="w3-container w3-card-4" action={% url 'timesheets:weekly-timesheet-form' %} method="post">
         {% csrf_token %}
         <br/>
         {% now "W" as current_week %}

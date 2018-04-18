@@ -33,20 +33,26 @@ class TimeLogForm(forms.ModelForm):
 class WeeklyTimesheetForm(forms.Form):
 	project = forms.ModelChoiceField(
 		queryset=Project.objects.all(),
+		required=True,
 		widget=ModelSelect2Widget(
 			model=Project,
 			search_fields=['name__icontains'],
-			)
-		)
+			attrs={
+				'style': 'width:100%',
+				})
+	)
 	task = forms.ModelChoiceField(
 		queryset=Task.objects.all(),
+		required=True,
 		widget=ModelSelect2Widget(
 			model=Task,
 			search_fields=['title__icontains'],
 			dependent_fields={'project': 'project'},
 			max_results=30,
-			)
-		)
+			attrs={
+				'style': 'width:100%',
+				})
+	)
 	mon = forms.DecimalField(initial=0, max_value=24.00, min_value=0.00, max_digits=4, decimal_places=2, widget = NumberInput(attrs={'step': '0.25'}))
 	tue = forms.DecimalField(initial=0, max_value=24.00, min_value=0.00, max_digits=4, decimal_places=2, widget = NumberInput(attrs={'step': '0.25'}))
 	wed = forms.DecimalField(initial=0, max_value=24.00, min_value=0.00, max_digits=4, decimal_places=2, widget = NumberInput(attrs={'step': '0.25'}))
@@ -55,4 +61,4 @@ class WeeklyTimesheetForm(forms.Form):
 	sat = forms.DecimalField(initial=0, max_value=24.00, min_value=0.00, max_digits=4, decimal_places=2, widget = NumberInput(attrs={'step': '0.25'}))
 	sun = forms.DecimalField(initial=0, max_value=24.00, min_value=0.00, max_digits=4, decimal_places=2, widget = NumberInput(attrs={'step': '0.25'}))
 
-WeeklyTimesheetFormset = formset_factory(WeeklyTimesheetForm, extra=1, can_order=False, can_delete=True, max_num=70, validate_max=True, min_num=1, validate_min=True)
+WeeklyTimesheetFormset = formset_factory(WeeklyTimesheetForm, extra=1, can_delete=True, max_num=70, min_num=1)

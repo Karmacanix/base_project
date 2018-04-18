@@ -23,5 +23,6 @@ urlpatterns = [
     path('timelog/<int:pk>/', views.TimeLogDetail.as_view(), name='timelog-detail'),
     path('timelog/create/', views.TimeLogCreate.as_view(), name='timelog-create'),
     path('timelog/weekly/', views.WeeklyTimesheetView, name='weekly-timesheet'),
+    path('timelog/weeklyform/', views.WeeklyTimesheetFormView, name='weekly-timesheet-form'),
     path('timelog/<int:pk>/update/', views.TimeLogUpdate.as_view(), name='timelog-update'),
 ]
