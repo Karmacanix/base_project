@@ -20,19 +20,33 @@
   <h3>{% trans "Log project time for week starting" %} {{week_start|date:"l, jS F, Y"}}</h3>
 </header>
 <div class="w3-container w3-card-4">
-  
-  {% regroup weekly_timelog by project as weekly_project_timelog %}
-  <ul>
-  {% for entry in weekly_project_timelog %}
-  <li>{{ entry.grouper }}
-    <ul>
-      {% for item in entry.list %}
-        <li>{{ item.task }} {{ item.work_date }} {{ item.duration }} {{ item.user }}</li>
+  <table id='timetable' class="w3-table-all w3-hoverable w3-grey">
+    <thead>
+      <tr class='w3-grey'>
+        <th>Project</th>
+        <th>Task</th>
+        <th id="head0">Mon</th>
+        <th id="head1">Tue</th>
+        <th id="head2">Wed</th>
+        <th id="head3">Thu</th>
+        <th id="head4">Fri</th>
+        <th id="head5">Sat</th>
+        <th id="head6">Sun</th>
+        <th>-</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for entry in weekly_timelog %}
+      <tr>
+        <td>{{ entry.project }}</td>
+        <td>{{ entry.task }}</td>
+        <td>{{ entry.work_date }}</td>
+        <td>{{ entry.duration }}</td>
+        <td>{{ entry.user }}</td>
+      </tr>
       {% endfor %}
-    </ul>
-  </li>
-  {% endfor %}
-  </ul>
+    </tbody>
+  </table>
 </div>
 <form class="w3-container w3-card-4" action={% url 'timesheets:weekly-timesheet-form' %} method="post">
   {% csrf_token %}

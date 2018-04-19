@@ -1,0 +1,41 @@
+{% extends "site-base.html" %}
+
+{% load static %}
+{% load account %}
+{% load i18n %}
+
+{% block head_title %}{% trans "Weekly Timesheets" %}{% endblock %}
+
+{% block content %}
+<div class="w3-container w3-half w3-margin-top">
+  <header class="w3-container">
+    <h1>{% trans "Weekly Timesheets" %}</h1>
+  </header>
+  <br>
+  <div class="w3-container w3-card-4">
+    <br>
+    {% if weektimesheet_list %}
+    <table class="w3-table-all w3-hoverable">
+      <thead>
+        <tr class="w3-grey">
+          <th>{% trans "Name" %}</th>
+          <th>{% trans "Starts" %}</th>     
+        </tr>
+      </thead>
+      <tbody>
+        {% for weektimesheet in weektimesheet_list %}
+          <tr>
+            <td><a class="w3-text-indigo" href="{% url 'timesheets:week-detail' weektimesheet.id %}">{{ weektimesheet.name }}</a></td>
+            <td>{{ weektimesheet.week_start }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <br>
+    {% else %}
+      <p>No timesheets to display. Please create a new timesheet to get started.</p>
+    {% endif %}
+    <a class="w3-button w3-section w3-blue w3-ripple" href="{% url 'timesheets:week-create' %}">{% trans "Create New" %}</a>
+  </div>
+</div>
+{% endblock %}

@@ -48,7 +48,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
     <button class="w3-button w3-block w3-left-align" onclick="myAccFunc()"><i class="fa fa-calendar fa-fw"></i>&nbsp; Timesheets</button>
       <div id="demoAcc" class="w3-bar-block w3-hide w3-white w3-card-4">
         <a href="{% url 'timesheets:timelog-list' %}" class="w3-bar-item w3-button w3-padding"><i class="fa fa-calendar fa-fw"></i>&nbsp; Daily Timesheets</a>
-        <a href="{% url 'timesheets:timelog-list' %}" class="w3-bar-item w3-button w3-padding"><i class="fa fa-calendar fa-fw"></i>&nbsp; Weekly Timesheets</a>
+        <a href="{% url 'timesheets:week-list' %}" class="w3-bar-item w3-button w3-padding"><i class="fa fa-calendar fa-fw"></i>&nbsp; Weekly Timesheets</a>
       </div>
     <a href="{% url 'invitations:invite-list' %}" class="w3-bar-item w3-button w3-padding"><i class="fa fa-handshake-o fa-fw"></i>&nbsp; Invite</a>
     <a href="{% url 'projects:project-list' %}" class="w3-bar-item w3-button w3-padding"><i class="fa fa-briefcase fa-fw"></i>&nbsp; Projects</a>
@@ -76,16 +76,15 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 
 <!-- message -->
   {% if messages %}
-  <div class="w3-panel w3-light-green">
-    <h3>Messages</h3>
-      <ul>
-        {% for message in messages %}
-          <li>{{message}}</li>
-        {% endfor %}
-      </ul>
+  <div class="w3-panel w3-light-blue">
+    <ul>
+      {% for message in messages %}
+        <li>{{message}}</li>
+      {% endfor %}
+    </ul>
   </div>
   {% endif %}
- 
+  
   {% block content %}
   {% endblock %}
   
