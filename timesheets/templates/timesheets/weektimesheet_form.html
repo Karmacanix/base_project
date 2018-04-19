@@ -12,7 +12,7 @@
   integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
   crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.0/moment.js"></script>
-  {{ formset.media.css }}
+  {{ form.media.css }}
 {% endblock %}
 
 {% block content %}
@@ -58,17 +58,17 @@
       </tr>
     </thead>
     <tbody>
-      {% for frm in formset %}
+      {% for line in weektimesheetlines %}
       <tr>
-        <td>{{ frm.project }}</td>
-        <td>{{ frm.task }}</td>
-        <td>{{ frm.mon }}</td>
-        <td>{{ frm.tue }}</td>
-        <td>{{ frm.wed }}</td>
-        <td>{{ frm.thu }}</td>
-        <td>{{ frm.fri }}</td>
-        <td>{{ frm.sat }}</td>
-        <td>{{ frm.sun }}</td>
+        <td>{{ line.project }}</td>
+        <td>{{ line.task }}</td>
+        <td>{{ line.mon }}</td>
+        <td>{{ line.tue }}</td>
+        <td>{{ line.wed }}</td>
+        <td>{{ line.thu }}</td>
+        <td>{{ line.fri }}</td>
+        <td>{{ line.sat }}</td>
+        <td>{{ line.sun }}</td>
         <td>delete?</td>
       </tr>
       {% endfor %}
@@ -91,11 +91,12 @@
 
 
   <a class="w3-button w3-section w3-red w3-ripple" href="{% url 'timesheets:week-list' %}">{% trans "Cancel" %}</a>
+  <a class="w3-button w3-section w3-blue w3-ripple" href="{% url 'timesheets:week-line-form' weektimesheet.id %}">{% trans "Add Project" %}</a>
     <button class="primaryAction w3-button w3-section w3-blue w3-ripple" type="submit">{% trans "Save" %}</button>
 </form>
 </div>
 </div>
-{{ formset.media.js }}
+{{ form.media.js }}
 {% block extra_body %}
 <script>
   var i = 0;

@@ -4,9 +4,10 @@ from django.contrib import messages
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.urls import reverse_lazy
 from projects.models import Project, Task
 from timesheets.models import TimeLog, WeekTimesheet, WeekTimesheetLine
-from timesheets.forms import TimeLogForm, WeekTimesheetForm, WeeklyTimesheetFormset, WeekTimesheetLineFormset
+from timesheets.forms import TimeLogForm, WeekTimesheetForm, WeeklyTimesheetFormset, WeekTimesheetLineFormset, WeekTimesheetLineForm
 
 # Create your views here.
 class TimeLogList(ListView):
@@ -85,11 +86,33 @@ class WeekUpdate(UpdateView):
 
 	def get_context_data(self, **kwargs):
 		context = super(WeekUpdate, self).get_context_data(**kwargs)
-		if self.request.POST:
-			context['formset'] = WeekTimesheetLineFormset(self.request.POST, instance=self.object)
-		else:
-			context['formset'] = WeekTimesheetLineFormset(instance=self.object)
+		context['weektimesheetlines'] = WeekTimesheetLine.objects.filter(timesheet=self.object)
 		return context
+
+
+class WeekLineView(CreateView):
+	model = WeekTimesheetLine
+	form_class = WeekTimesheetLineForm
+	#success_url = reverse_lazy('timesheets:week-update')
+	#print(success_url)
+
+	def get_initial(self):
+		"""
+		Returns the initial data to use for forms on this view.
+		"""
+		initial = super(WeekLineView, self).get_initial()
+		ts = WeekTimesheet.objects.get(pk=self.kwargs.get('pk'))
+		initial['timesheet'] = ts
+		initial['week_start'] = ts.week_start
+		return initial
+
+	def post(self, request, *args, **kwargs):
+		form = self.get_form()
+		if form.is_valid():
+			form.save()
+			messages.success(request, 'Project hours saved sucessfully.')
+		else:
+			messages.error(request, 'An error occurred. Project hours did not save.')
 
 
 def WeeklyTimesheetView(request):

@@ -1,4 +1,5 @@
 from django import forms
+from django.conf import settings
 from django.forms import inlineformset_factory, modelformset_factory
 from django.forms.formsets import formset_factory
 from django.forms.widgets import NumberInput
@@ -33,12 +34,19 @@ class TimeLogForm(forms.ModelForm):
 
 
 class WeekTimesheetForm(forms.ModelForm):
+	name = forms.CharField(disabled=True) # should be week year in the format W01-2018 or similar
+	week_start = forms.DateField(disabled=True)
 	class Meta:
 		model = WeekTimesheet
 		fields = ['name', 'user', 'week_start']
 
 
 class WeekTimesheetLineForm(forms.ModelForm):
+	timesheet = forms.ModelChoiceField(
+		queryset=WeekTimesheet.objects.all(),
+		required=True,
+		disabled=True)
+	week_start = forms.DateField(disabled=True)
 	project = forms.ModelChoiceField(
 		queryset=Project.objects.all(),
 		required=True,
@@ -70,7 +78,7 @@ class WeekTimesheetLineForm(forms.ModelForm):
 	sun = forms.DecimalField(initial=0, max_value=24.00, min_value=0.00, max_digits=4, decimal_places=2, widget = NumberInput(attrs={'step': '0.25'}))
 	class Meta:
 		model = WeekTimesheetLine
-		fields = ['timesheet', 'project', 'task', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun']
+		fields = ['week_start', 'timesheet', 'project', 'task', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun']
 
 
 WeekTimesheetLineFormset = inlineformset_factory(WeekTimesheet, WeekTimesheetLine, form=WeekTimesheetLineForm, extra=2, can_delete=True, max_num=70, min_num=1)

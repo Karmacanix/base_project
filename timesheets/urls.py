@@ -28,6 +28,7 @@ urlpatterns = [
     path('week/list/', views.WeekList.as_view(), name='week-list'),
     path('week/<int:pk>/', views.WeekDetail.as_view(), name='week-detail'),
     path('week/create/', views.WeekCreate.as_view(), name='week-create'),
+    path('week/<int:pk>/line/', views.WeekLineView.as_view(), name='week-line-form'),
     path('week/<int:pk>/update/', views.WeekUpdate.as_view(), name='week-update'), 
     path('week/form/', views.WeekTimesheetFormView, name='week-form'),   
 ]
