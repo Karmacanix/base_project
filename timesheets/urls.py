@@ -20,6 +20,8 @@ from . import views
 app_name = 'timesheets'
 urlpatterns = [
     path('select/', views.timesheet_select, name='timesheet-select'),
+    path('approve/', views.ApprovalLines.as_view(), name='approval-lines'),
+    path('rework/', views.rework_comment, name='rework-comment'),
     path('<timesheet_name>/', views.TimesheetLines.as_view(), name='timesheet-lines'),
     path('<timesheet_name>/create/', views.TimesheetLineCreate.as_view(), name='timesheet-line-create'),
     path('<timesheet_name>/edit/<int:pk>/', views.TimesheetLineEdit.as_view(), name='timesheet-line-edit'),

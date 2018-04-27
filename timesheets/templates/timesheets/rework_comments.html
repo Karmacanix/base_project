@@ -1,0 +1,37 @@
+{% extends "site-base.html" %}
+
+{% load static %}
+{% load account %}
+{% load i18n %}
+
+{% block head_title %}{% trans "Rework Comment Form" %}{% endblock %}
+
+{% block content %}
+<div class="w3-container w3-third w3-margin-top">
+  <header class="w3-container">
+    <h1>{% trans "Rework comment" %}</h1>
+  </header>
+  <ul>
+    <li>timesheet name</li>
+    <li>timesheet line</li>
+    <li>project</li>
+    <li>task</li>
+    <li>mon</li>
+    <li>tue</li>
+    <li>wed</li>
+    <li>thu</li>
+    <li>fri</li>
+    <li>sat</li>
+    <li>sun</li>
+    <li>total</li>
+  </ul>
+  <form class="w3-container w3-card-4" action="." method="post">
+    {% csrf_token %}
+    <br/>
+    <textarea rows="4" cols="60" id="myComment" name="myComment" placeholder="Describe the data that needs to change to get approval."></textarea>
+    <a class="w3-button w3-section w3-red w3-ripple" href="{% url 'timesheets:approval-lines' %}">{% trans "Cancel" %}</a>
+    <button class="primaryAction w3-button w3-section w3-blue w3-ripple" type="submit">{% trans "Save" %}</button>
+  </form>
+</div>
+
+{% endblock %}

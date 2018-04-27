@@ -14,6 +14,9 @@ class WeekTimesheet(models.Model):
 	def get_absolute_url(self):
 		return reverse('timesheets:week-detail', kwargs={'pk': self.id})
 
+	def __str__(self):
+		return self.name
+
 
 class WeekTimesheetLine(models.Model):
 	timesheet = models.ForeignKey(WeekTimesheet, db_column='name', on_delete=models.CASCADE)

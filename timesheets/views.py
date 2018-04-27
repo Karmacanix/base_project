@@ -80,3 +80,15 @@ class TimesheetLineEdit(UpdateView):
 
 def timesheet_select(request):
 	return render(request, template_name='timesheets/timesheet_select.html')
+
+
+class ApprovalLines(ListView):
+	model = WeekTimesheetLine
+	template_name = 'timesheets/approval_lines.html'
+	context_object_name = "approval_lines"
+	paginate_by = 25
+	ordering = "timesheet"
+
+
+def rework_comment(request):
+	return render(request, template_name='timesheets/rework_comments.html')
