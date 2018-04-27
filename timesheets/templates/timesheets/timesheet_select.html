@@ -1,0 +1,29 @@
+{% extends "site-base.html" %}
+
+{% load static %}
+{% load account %}
+{% load i18n %}
+
+{% block head_title %}{% trans "Select week" %}{% endblock %}
+
+{% block content %}
+<div class="w3-container w3-third w3-margin-top">
+  <header class="w3-container">
+    <h1>{% trans "Select week" %}</h1>
+  </header>
+  <div class="w3-container w3-card-4">
+    {% now "Y" as current_year %}
+    {% now "W" as current_week %}
+    <input type="week" name="myWeek" id="myWeek" value="{{ current_year }}-W{{ current_week }}">    
+    <a class="w3-button w3-section w3-green w3-ripple" href="#" id="demo" onclick="myFunction()">Go</a>
+    <script>
+    function myFunction() {
+      var x = document.getElementById("myWeek").value;
+      var y = x + "-" + "{{request.user.username}}"
+      var z = "/timesheets/" + y
+      document.getElementById("demo").href = z;
+    }
+    </script>
+  </div>
+</div>
+{% endblock %}

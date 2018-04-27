@@ -1,0 +1,104 @@
+{% extends "site-base.html" %}
+
+{% load static %}
+{% load account %}
+{% load i18n %}
+{% load mathfilters %}
+
+{% block head_title %}{% trans "Timesheet" %}{% endblock %}
+
+{% block extra_head %}
+  <script
+  src="https://code.jquery.com/jquery-3.3.1.js"
+  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+  crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.0/moment.js"></script>
+{% endblock %}
+
+{% block content %}
+<div class="w3-container w3-margin-top">
+	{% if timesheet_name %}
+    <header class="w3-container">
+      <h1>{% trans "Edit weekly timesheet" %}: ({{ timesheet_name }})</h1>
+    </header>
+  {% else %}
+    <header class="w3-container">
+      <h1>{% trans "Create new weekly timesheet" %}</h1>
+    </header>
+  {% endif %}
+  
+  <div class="w3-container w3-card-4">
+    <br>
+    {% if timesheet_lines %}
+    <table id='timetable' class="w3-table-all w3-hoverable w3-grey">
+      <thead>
+        <tr class='w3-light-blue'>
+          <th>Action</th>
+          <th>Project</th>
+          <th>Task</th>
+          <th id="head0">Mon</th>
+          <th id="head1">Tue</th>
+          <th id="head2">Wed</th>
+          <th id="head3">Thu</th>
+          <th id="head4">Fri</th>
+          <th id="head5">Sat</th>
+          <th id="head6">Sun</th>
+          <th>Totals</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for line in timesheet_lines %}
+        <tr>
+          <td><a class="w3-btn w3-cyan w3-tiny" href="{% url 'timesheets:timesheet-line-edit' timesheet_name line.id %}">Edit</a></td>
+          <td>{{ line.project }}</td>
+          <td>{{ line.task }}</td>
+          <td>{{ line.mon }}</td>
+          <td>{{ line.tue }}</td>
+          <td>{{ line.wed }}</td>
+          <td>{{ line.thu }}</td>
+          <td>{{ line.fri }}</td>
+          <td>{{ line.sat }}</td>
+          <td>{{ line.sun }}</td>
+          <td class='w3-light-blue'>{{ line.mon|addition:line.tue|addition:line.wed|addition:line.thu|addition:line.fri|addition:line.sat|addition:line.sun }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+      <tfooter>
+        <tr class='w3-light-blue'>
+          <td>Totals:</td>
+          <td></td>
+          <td></td>
+          <td>{{ totals.mon_total }}</td>
+          <td>{{ totals.tue_total }}</td>
+          <td>{{ totals.wed_total }}</td>
+          <td>{{ totals.thu_total }}</td>
+          <td>{{ totals.fri_total }}</td>
+          <td>{{ totals.sat_total }}</td>
+          <td>{{ totals.sun_total }}</td>
+          <td>{{ totals.mon_total|addition:totals.tue_total|addition:totals.wed_total|addition:totals.thu_total|addition:totals.fri_total|addition:totals.sat_total|addition:totals.sun_total }}</td>
+        </tr>
+      </tfooter>
+    </table>
+    {% else %}
+      <h5>Click 'Add project' button to log project hours and get your timesheet started!</h5>
+    {% endif %}
+    <a class="w3-btn w3-section w3-blue" href="{% url 'timesheets:timesheet-line-create' timesheet_name %}">{% trans "Add new line" %}</a>
+    <a class="w3-button w3-section w3-red w3-ripple" href="{% url 'timesheets:timesheet-select' %}">{% trans "Cancel" %}</a>
+  </div>
+</div>
+
+{% block extra_body %}
+<script>
+  var i = 0;
+  do {
+      var eid = "head"+i;
+      var d = new Date('{{week_start|date:"d M Y"}}');
+      d.setDate(d.getDate() + i);
+      document.getElementById(eid).innerHTML = moment(d).format('ddd Do MMM');
+      i++;
+  }
+  while (i < 7);
+</script>
+{% endblock %}
+
+{% endblock %}

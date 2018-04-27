@@ -4,21 +4,8 @@ from django.urls import reverse
 from projects.models import Project, Task
 
 # Create your models here
-class TimeLog(models.Model):
-	project = models.ForeignKey(Project, on_delete=models.CASCADE)
-	task = models.ForeignKey(Task, on_delete=models.CASCADE)
-	user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-	duration = models.DecimalField(max_digits=4, decimal_places=2)
-	work_date = models.DateField()
-	created = models.DateTimeField(auto_now_add=True)
-	updated = models.DateTimeField(auto_now=True)
-
-	def get_absolute_url(self):
-		return reverse('timesheets:timelog-detail', kwargs={'pk': self.id})
-
-
 class WeekTimesheet(models.Model):
-	name = models.CharField(max_length=40, unique=True) # should be week year in the format W01-2018 or similar
+	name = models.CharField(max_length=40, unique=True, primary_key=True) # should be week year in the format W01-2018 or similar
 	user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 	week_start = models.DateField()
 	created = models.DateTimeField(auto_now_add=True)
@@ -29,7 +16,7 @@ class WeekTimesheet(models.Model):
 
 
 class WeekTimesheetLine(models.Model):
-	timesheet = models.ForeignKey(WeekTimesheet, on_delete=models.CASCADE)
+	timesheet = models.ForeignKey(WeekTimesheet, db_column='name', on_delete=models.CASCADE)
 	project = models.ForeignKey(Project, on_delete=models.CASCADE)
 	task = models.ForeignKey(Task, on_delete=models.CASCADE)
 	mon = models.DecimalField(max_digits=4, decimal_places=2)

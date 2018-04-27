@@ -59,6 +59,7 @@ INSTALLED_APPS = [
 
     # 3rd party apps
     'django_select2',
+    'mathfilters',
 ]
 
 MIDDLEWARE = [

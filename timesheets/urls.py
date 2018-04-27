@@ -19,16 +19,8 @@ from . import views
 
 app_name = 'timesheets'
 urlpatterns = [
-    path('timelog/list/', views.TimeLogList.as_view(), name='timelog-list'),
-    path('timelog/<int:pk>/', views.TimeLogDetail.as_view(), name='timelog-detail'),
-    path('timelog/create/', views.TimeLogCreate.as_view(), name='timelog-create'),
-    path('timelog/<int:pk>/update/', views.TimeLogUpdate.as_view(), name='timelog-update'),
-    path('timelog/weekly/', views.WeeklyTimesheetView, name='weekly-timesheet'),
-    path('timelog/weeklyform/', views.WeeklyTimesheetFormView, name='weekly-timesheet-form'),
-    path('week/list/', views.WeekList.as_view(), name='week-list'),
-    path('week/<int:pk>/', views.WeekDetail.as_view(), name='week-detail'),
-    path('week/create/', views.WeekCreate.as_view(), name='week-create'),
-    path('week/<int:pk>/line/', views.WeekLineView.as_view(), name='week-line-form'),
-    path('week/<int:pk>/update/', views.WeekUpdate.as_view(), name='week-update'), 
-    path('week/form/', views.WeekTimesheetFormView, name='week-form'),   
+    path('select/', views.timesheet_select, name='timesheet-select'),
+    path('<timesheet_name>/', views.TimesheetLines.as_view(), name='timesheet-lines'),
+    path('<timesheet_name>/create/', views.TimesheetLineCreate.as_view(), name='timesheet-line-create'),
+    path('<timesheet_name>/edit/<int:pk>/', views.TimesheetLineEdit.as_view(), name='timesheet-line-edit'),
 ]

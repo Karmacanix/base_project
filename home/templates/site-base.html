@@ -45,15 +45,11 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
   <div class="w3-bar-block">
     <a href="{% url 'home' %}" class="w3-bar-item w3-button w3-padding"><i class="fa fa-home fa-fw"></i>&nbsp; Home</a>
     {% if user.is_authenticated %}
-    <button class="w3-button w3-block w3-left-align" onclick="myAccFunc()"><i class="fa fa-calendar fa-fw"></i>&nbsp; Timesheets</button>
-      <div id="demoAcc" class="w3-bar-block w3-hide w3-white w3-card-4">
-        <a href="{% url 'timesheets:timelog-list' %}" class="w3-bar-item w3-button w3-padding"><i class="fa fa-calendar fa-fw"></i>&nbsp; Daily Timesheets</a>
-        <a href="{% url 'timesheets:week-list' %}" class="w3-bar-item w3-button w3-padding"><i class="fa fa-calendar fa-fw"></i>&nbsp; Weekly Timesheets</a>
-      </div>
+    <a href="{% url 'timesheets:timesheet-select' %}" class="w3-bar-item w3-button w3-padding"><i class="fa fa-calendar fa-fw"></i>&nbsp; Timesheets</a>
     <a href="{% url 'invitations:invite-list' %}" class="w3-bar-item w3-button w3-padding"><i class="fa fa-handshake-o fa-fw"></i>&nbsp; Invite</a>
     <a href="{% url 'projects:project-list' %}" class="w3-bar-item w3-button w3-padding"><i class="fa fa-briefcase fa-fw"></i>&nbsp; Projects</a>
     <button class="w3-button w3-block w3-left-align" onclick="myAccFunc2()"><i class="fa fa-user-o fa-fw"></i>&nbsp; Settings</button>
-      <div id="demoAcc2" class="w3-bar-block w3-hide w3-white w3-card-4">
+      <div id="demoAcc" class="w3-bar-block w3-hide w3-white w3-card-4">
         <a href="{% url 'account_email' %}" class="w3-bar-item w3-button"><i class="fa fa-file-text-o fa-fw"></i>&nbsp; Invoice Text</a>
         <a href="{% url 'account_email' %}" class="w3-bar-item w3-button"><i class="fa fa-envelope fa-fw"></i>&nbsp; Change E-mail</a>
         <a href="{% url 'account_change_password' %}" class="w3-bar-item w3-button"><i class="fa fa-key fa-fw"></i>&nbsp; Change Password</a>
@@ -136,18 +132,6 @@ function w3_close() {
 
 function myAccFunc() {
     var x = document.getElementById("demoAcc");
-    if (x.className.indexOf("w3-show") == -1) {
-        x.className += " w3-show";
-        x.previousElementSibling.className += " w3-green";
-    } else { 
-        x.className = x.className.replace(" w3-show", "");
-        x.previousElementSibling.className = 
-        x.previousElementSibling.className.replace(" w3-green", "");
-    }
-}
-
-function myAccFunc2() {
-    var x = document.getElementById("demoAcc2");
     if (x.className.indexOf("w3-show") == -1) {
         x.className += " w3-show";
         x.previousElementSibling.className += " w3-green";
