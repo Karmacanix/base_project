@@ -7,7 +7,7 @@
 {% block head_title %}{% trans "Project List" %}{% endblock %}
 
 {% block content %}
-<div class="w3-container w3-half w3-margin-top">
+<div class="w3-container w3-margin-top">
   <header class="w3-container">
     <h1>{% trans "Project List" %}</h1>
   </header>
@@ -17,33 +17,23 @@
     <table class="w3-table-all w3-hoverable">
       <thead>
         <tr class="w3-grey">
-          <th>{% trans "ID" %}</th>
           <th>{% trans "Name" %}</th>
-          <th class="w3-center">{% trans "Active" %}</th>
-          <th>{% trans "Start" %}</th>
-          <th>{% trans "End" %}</th>
-          <th>{% trans "Countdown" %}</th>
+          <th>{% trans "Start week" %}</th>
+          <th>{% trans "End week" %}</th>
           <th>{% trans "Tasks" %}</th>
           <th>{% trans "Team" %}</th>
+          <th>{% trans "Approvers" %}</th>
         </tr>
       </thead>
       <tbody>
         {% for project in project_list %}
         <tr>
-          <td>{{ project.id }}</td>
           <td><a class="w3-text-indigo" href="{{ project.get_absolute_url }}">{{ project.name }}</a></td>
-          <td class="w3-center">
-            {% if project.is_active %}
-              <i class="fa fa-check-circle" style="color:green;"></i>
-            {% else %}
-              <i class="fa fa-check-circle" style="color:red;"></i>
-            {% endif %}
-          </td>
-          <td>{{ project.start }}</td>
-          <td>{{ project.end }}</td>
-          <td>{{ project.start|timesince:project.end }}</td>
+          <td>{{ project.start_week }}</td>
+          <td>{{ project.end_week }}</td>
           <td><a class="w3-text-indigo" href="{% url 'projects:task-list' project.id %}">{% trans "View Tasks" %}</a></td>
           <td><a class="w3-text-indigo" href="{% url 'projects:project-list' %}">{% trans "View Team" %}</a></td>
+          <td>{% for approvers in project.approvers.all %}{{ approvers }}{% if forloop.last %}.{% else%}, {% endif %}{% endfor %}</td>
         </tr>
         {% endfor %}
       </tbody>

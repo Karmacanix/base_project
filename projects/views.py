@@ -35,9 +35,16 @@ class ProjectApproversCreate(CreateView):
     form_class = ProjectApproversForm
 
 class ProjectApproversUpdate(UpdateView):
+    
+    def get_form_kwargs(self):
+        kwargs = super(ProjectApproversUpdate, self).get_form_kwargs()
+        kwargs.update({'user': self.request.user})
+        return kwargs
+
     model = Project
     form_class = ProjectApproversForm
     template_name_suffix = '_approvers_form'
+
 
 class TaskList(ListView):
     model = Task
