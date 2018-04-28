@@ -30,4 +30,8 @@ urlpatterns = [
     path('task/<int:pk>/', views.TaskDetail.as_view(), name='task-detail'),
     path('task/create/', views.TaskCreate.as_view(), name='task-create'),
     path('task/<int:pk>/update/', views.TaskUpdate.as_view(), name='task-update'),
+    path('project/<int:project_id>/team/list/', views.TeamList.as_view(), name='team-list'),
+    path('team/<int:pk>/', views.TeamDetail.as_view(), name='team-detail'),
+    path('team/<int:project_id>/create/', views.TeamCreate.as_view(), name='team-create'),
+    path('team/<int:project_id>/update/<int:pk>/', views.TeamUpdate.as_view(), name='team-update'),
 ]

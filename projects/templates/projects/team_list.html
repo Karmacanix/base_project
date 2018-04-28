@@ -1,0 +1,46 @@
+{% extends "site-base.html" %}
+
+{% load static %}
+{% load account %}
+{% load i18n %}
+
+{% block head_title %}{% trans "Team List" %}{% endblock %}
+
+{% block content %}
+<div class="w3-container w3-half w3-margin-top">
+  <header class="w3-container">
+    <h1>{% trans "Team List" %}</h1>
+  </header>
+  <div class="w3-container w3-card-4">    
+    {% if team_list %}
+      {% regroup team_list by project as project_team_list %}
+        {% for project in project_team_list %}
+          <h3>{% trans "for project:" %} <a class="w3-text-indigo" href="{% url 'projects:project-detail' project.grouper.id %}">{{ project.grouper }}</a></h3>
+            <table class="w3-table-all w3-hoverable">
+              <thead>
+                <tr class="w3-grey">
+                  <th>{% trans "Team Member" %}</th>
+                  <th>{% trans "Active" %}</th>
+                  <th>{% trans "Hourly Rate" %}</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for team in project.list %}
+                  <tr>
+                    <td><a class="w3-text-indigo" href="{% url 'projects:team-detail' team.id %}">{{ team.member }}</a></td>
+                    <td>{{ team.is_active }}</td>
+                    <td>{{ team.rate }}</td>
+                  </tr>
+                {% endfor %}                
+              </tbody>
+            </table>
+          {% endfor %}
+    {% else %}
+      <br>
+      <p>There are no team members.</p>
+    {% endif %}
+    <a class="w3-button w3-section w3-red w3-ripple" href="{% url 'projects:project-list' %}">{% trans "Cancel" %}</a>
+    <a class="w3-button w3-section w3-blue w3-ripple" href="{% url 'projects:team-create' project_id %}">{% trans "Create New" %}</a>
+  </div>
+</div>
+{% endblock %}

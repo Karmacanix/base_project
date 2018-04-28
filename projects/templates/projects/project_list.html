@@ -18,6 +18,7 @@
       <thead>
         <tr class="w3-grey">
           <th>{% trans "Name" %}</th>
+          <th>{% trans "Billable" %}</th>
           <th>{% trans "Start week" %}</th>
           <th>{% trans "End week" %}</th>
           <th>{% trans "Tasks" %}</th>
@@ -29,10 +30,11 @@
         {% for project in project_list %}
         <tr>
           <td><a class="w3-text-indigo" href="{{ project.get_absolute_url }}">{{ project.name }}</a></td>
+          <td>{{ project.billable }}</td>
           <td>{{ project.start_week }}</td>
           <td>{{ project.end_week }}</td>
           <td><a class="w3-text-indigo" href="{% url 'projects:task-list' project.id %}">{% trans "View Tasks" %}</a></td>
-          <td><a class="w3-text-indigo" href="{% url 'projects:project-list' %}">{% trans "View Team" %}</a></td>
+          <td><a class="w3-text-indigo" href="{% url 'projects:team-list' project.id %}">{% trans "View Team" %}</a></td>
           <td>{% for approvers in project.approvers.all %}{{ approvers }}{% if forloop.last %}.{% else%}, {% endif %}{% endfor %}</td>
         </tr>
         {% endfor %}

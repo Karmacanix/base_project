@@ -2,14 +2,14 @@
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 
 # 3rd party add-ons
 from invitations.models import Invitation
 
 # this app
-from .models import Project, Task
-from .forms import ProjectForm, ProjectApproversForm, TaskForm, TaskFormSet
+from .models import Project, Task, Team
+from .forms import ProjectForm, ProjectApproversForm, TaskForm, TeamForm
 
 # Create your views here.
 class ProjectList(ListView):
@@ -63,3 +63,64 @@ class TaskCreate(CreateView):
 class TaskUpdate(UpdateView):
     model = Task
     form_class = TaskForm
+
+
+class TeamList(ListView):
+    model = Team
+
+    def get_queryset(self):
+        queryset = super(TeamList, self).get_queryset()
+        queryset = queryset.filter(project=self.kwargs['project_id'])
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super(TeamList, self).get_context_data(**kwargs)
+        context['project_id'] = self.kwargs['project_id']
+        return context
+
+
+class TeamDetail(DetailView):
+    model = Team
+
+
+class TeamCreate(CreateView):
+    model = Team
+    template_name = 'projects/team_form.html'
+    form_class = TeamForm
+
+    def get_initial(self):
+        initial = super(TeamCreate, self).get_initial()
+        initial['project'] = self.kwargs['project_id']
+        return initial
+
+    def get_form_kwargs(self):
+        kwargs = super(TeamCreate, self).get_form_kwargs()
+        kwargs.update({'user': self.request.user})
+        return kwargs
+
+    def get_success_url(self):
+        return reverse('projects:team-list', kwargs={'project_id': self.kwargs['project_id']})
+
+    def get_context_data(self, **kwargs):
+        context = super(TeamCreate, self).get_context_data(**kwargs)
+        context['project_id'] = self.kwargs['project_id']
+        return context
+
+
+class TeamUpdate(UpdateView):
+    model = Team
+    template_name = 'projects/team_form.html'
+    form_class = TeamForm
+
+    def get_form_kwargs(self):
+        kwargs = super(TeamUpdate, self).get_form_kwargs()
+        kwargs.update({'user': self.request.user})
+        return kwargs
+
+    def get_context_data(self, **kwargs):
+        context = super(TeamUpdate, self).get_context_data(**kwargs)
+        context['project_id'] = self.kwargs['project_id']
+        return context
+
+    def get_success_url(self):
+        return reverse('projects:team-list', kwargs={'project_id': self.kwargs['project_id']})

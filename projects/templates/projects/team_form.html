@@ -1,0 +1,43 @@
+{% extends "site-base.html" %}
+
+{% load static %}
+{% load account %}
+{% load i18n %}
+
+{% block head_title %}{% trans "Team Form" %}{% endblock %}
+
+{% block content %}
+<div class="w3-container w3-half w3-margin-top">
+	{% if team %}
+<header class="w3-container">
+  <h1>{% trans "Edit Team" %}</h1>
+</header>
+{% else %}
+<header class="w3-container">
+  <h1>{% trans "Add new Team" %}</h1>
+</header>
+{% endif %}
+<form class="w3-container w3-card-4" action="" method="post">
+   {% csrf_token %}
+    <br/>
+  <table>
+  	<tbody>
+  		{% for field in form %}  		
+	  		<tr>
+	  			<td>{{ field.label }}</td>
+	  			<td><div class="w3-padding">{{ field }}</div></td>
+	  		</tr>
+  		{% endfor %}
+  	</tbody>
+  </table>
+  {% if team %}
+  <a class="w3-button w3-section w3-red w3-ripple" href="{% url 'projects:team-detail' team.id %}">{% trans "Cancel" %}</a>
+  {% else %}
+  <a class="w3-button w3-section w3-red w3-ripple" href="{% url 'projects:team-list' project_id %}">{% trans "Cancel" %}</a>
+  {% endif %}
+    <button class="primaryAction w3-button w3-section w3-blue w3-ripple" type="submit">{% trans "Save" %}</button>
+    
+</form>
+</div>
+
+{% endblock %}
