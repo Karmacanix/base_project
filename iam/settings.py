@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'home',
     'projects',
     'timesheets',
+    'invoices',
 
     'django.contrib.admin',
     'django.contrib.auth',
