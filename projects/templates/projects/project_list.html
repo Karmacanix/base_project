@@ -11,14 +11,15 @@
   <header class="w3-container">
     <h1>{% trans "Project List" %}</h1>
   </header>
-  <div class="w3-container w3-card-4">
+  <div class="w3-container w3-half w3-card-4">
     <br>
     {% if project_list %}
     <table class="w3-table-all w3-hoverable">
       <thead>
         <tr class="w3-grey">
           <th>{% trans "Name" %}</th>
-          <th>{% trans "Billable" %}</th>
+          <th class="w3-center">{% trans "Billable" %}</th>
+          <th class="w3-center">{% trans "Status" %}</th>
           <th>{% trans "Start week" %}</th>
           <th>{% trans "End week" %}</th>
           <th>{% trans "Tasks" %}</th>
@@ -30,7 +31,20 @@
         {% for project in project_list %}
         <tr>
           <td><a class="w3-text-indigo" href="{{ project.get_absolute_url }}">{{ project.name }}</a></td>
-          <td>{{ project.billable }}</td>
+          {% if project.billable %}
+            <td class="w3-text-green w3-center"><i class="fa fa-check-circle fa-lg"></i></td>
+          {% else %}
+            <td class="w3-text-red w3-center"><i class="fa fa-times-circle fa-lg"></i></td>
+          {% endif %}
+          {% if project.status == "Active" %}
+            <td class="w3-text-green w3-center"><i class="fa fa-check-circle fa-lg"></i></td>
+          {% endif %}
+          {% if project.status == "On Hold" %}
+            <td class="w3-text-red w3-center"><i class="fa fa-pause-circle fa-lg"></i></td>
+          {% endif %}
+          {% if project.status == "Closed" %}
+            <td class="w3-text-blue w3-center"><i class="fa fa-times-circle fa-lg"></i></td>
+          {% endif %}
           <td>{{ project.start_week }}</td>
           <td>{{ project.end_week }}</td>
           <td><a class="w3-text-indigo" href="{% url 'projects:task-list' project.id %}">{% trans "View Tasks" %}</a></td>

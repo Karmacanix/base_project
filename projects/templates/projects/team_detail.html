@@ -38,7 +38,7 @@
         <p>{{ team.created }}</p>
       </div>
     </div>
-    <a class="w3-button w3-section w3-red w3-ripple" href="{% url 'projects:team-list' team.project.id %}">{% trans "Cancel" %}</a>
+    <a class="w3-button w3-section w3-red w3-ripple" href="{% url 'projects:team-list' team.project.id %}">{% trans "Back to list" %}</a>
     <a class="w3-button w3-section w3-blue w3-ripple" href="{% url 'projects:team-update' team.project.id team.id %}">{% trans "Edit" %}</a>
 
   </div>

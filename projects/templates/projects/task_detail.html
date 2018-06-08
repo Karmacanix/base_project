@@ -36,7 +36,7 @@
         <p>{{ task.created }}</p>
       </div>
     </div>
-    <a class="w3-button w3-section w3-red w3-ripple" href="{% url 'projects:task-list' task.project.id %}">{% trans "Cancel" %}</a>
+    <a class="w3-button w3-section w3-red w3-ripple" href="{% url 'projects:task-list' task.project.id %}">{% trans "Back to list" %}</a>
     <a class="w3-button w3-section w3-blue w3-ripple" href="{% url 'projects:task-update' task.id %}">{% trans "Edit" %}</a>
 
   </div>

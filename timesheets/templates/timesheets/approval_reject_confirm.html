@@ -1,0 +1,55 @@
+{% extends "site-base.html" %}
+
+{% load static %}
+{% load account %}
+{% load i18n %}
+{% load mathfilters %}
+
+{% block head_title %}{% trans "Reject Timesheet" %}{% endblock %}
+
+{% block extra_head %}
+  <script
+  src="https://code.jquery.com/jquery-3.3.1.js"
+  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+  crossorigin="anonymous"></script>
+
+{% endblock %}
+
+{% block content %}
+<div class="w3-container w3-margin-top">
+  {% if timesheet_name %}
+    <header class="w3-container">
+      <h1>{% trans "Reject" %} {{ timesheet_name }}?</h1>
+    </header>
+  {% else %}
+    <header class="w3-container">
+      <h1>{% trans "You have no timesheet to reject" %}</h1>
+    </header>
+  {% endif %}
+  
+  <form class="w3-container w3-card-4" action="." method="post">
+    {% csrf_token %}
+
+    {% if approval_reject_confirm %}
+<p>By rejecting this timesheet you are requesting the user to make changes.</p>
+
+<div class="w3-panel w3-border w3-light-grey w3-round-large">
+<h5>Summary:</h5>
+<ul>
+  <li>Timesheet: {{ timesheet_name }}</li>
+  <li>Week starting: {{ week_start }}</li>
+  <li>Total hours: {{ totals.mon_total|addition:totals.tue_total|addition:totals.wed_total|addition:totals.thu_total|addition:totals.fri_total|addition:totals.sat_total|addition:totals.sun_total }}</li>
+</ul>
+<h5>Comment:</h5>
+<textarea name="comment"></textarea>
+</div>
+
+    
+    {% endif %}
+    <a class="w3-button w3-section w3-red w3-ripple" href="{% url 'timesheets:approval-lines' timesheet_name %}">{% trans "No" %}</a>
+    <button class="primaryAction w3-button w3-section w3-green w3-ripple" type="submit">{% trans "Yes" %}</button>
+  </form>
+</div>
+
+
+{% endblock %}

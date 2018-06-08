@@ -7,88 +7,114 @@
 
 {% block head_title %}{% trans "Approval" %}{% endblock %}
 
+{% block extra_head %}
+  <script
+  src="https://code.jquery.com/jquery-3.3.1.js"
+  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+  crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.0/moment.js"></script>
+{% endblock %}
+
 {% block content %}
 <div class="w3-container w3-margin-top">
+  {% if approval_lines %}
+ {% regroup approval_lines by timesheet as timesheet_approval_lines %}
+  {% for timesheet in timesheet_approval_lines %}
   <header class="w3-container">
+    <h1>{% trans "Approve" %} {{ timesheet.grouper }}</h1>
+  </header>  
+<div class="w3-container w3-card-4">
+        <table class="w3-table-all w3-hoverable w3-grey">
+          <thead>
+            <tr class='w3-light-blue'>
+              <th>Project</th>
+              <th>Task</th>
+              <th>Approve?</th>
+              <th>Reject?</th>
+              <th id="head0">Mon</th>
+              <th id="head1">Tue</th>
+              <th id="head2">Wed</th>
+              <th id="head3">Thu</th>
+              <th id="head4">Fri</th>
+              <th id="head5">Sat</th>
+              <th id="head6">Sun</th>
+              <th>Totals</th>
+            </tr>
+          </thead>
+          {% for line in timesheet.list %}
+          <tbody>
+            <td>{{ line.timesheet_line.project }}</td>
+            <td>{{ line.timesheet_line.task }}</td>
+            {% if line.approved %}
+              <td class="w3-text-green"><i class="fa fa-check-circle"></i></td>
+            {% else %}
+              <td class="w3-text-red"><i class="fa fa-times-circle"></i></td>
+            {% endif %}
+            {% if line.rejected %}
+              <td class="w3-text-green"><i class="fa fa-check-circle"></i></td>
+            {% else %}
+              <td class="w3-text-red"><i class="fa fa-times-circle"></i></td>
+            {% endif %}
+            <td>{{ line.timesheet_line.mon }}</td>
+            <td>{{ line.timesheet_line.tue }}</td>
+            <td>{{ line.timesheet_line.wed }}</td>
+            <td>{{ line.timesheet_line.thu }}</td>
+            <td>{{ line.timesheet_line.fri }}</td>
+            <td>{{ line.timesheet_line.sat }}</td>
+            <td>{{ line.timesheet_line.sun }}</td>
+            <th class='w3-light-blue'>{{ line.timesheet_line.mon|addition:line.timesheet_line.tue|addition:line.timesheet_line.wed|addition:line.timesheet_line.thu|addition:line.timesheet_line.fri|addition:line.timesheet_line.sat|addition:line.timesheet_line.sun }}</th>
+          </tbody>
+          {% endfor %}
+       
+        <tfooter>
+        <tr class='w3-light-blue'>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th>Totals:</th>
+          <th>{{ totals.mon_total }}</th>
+          <th>{{ totals.tue_total }}</th>
+          <th>{{ totals.wed_total }}</th>
+          <th>{{ totals.thu_total }}</th>
+          <th>{{ totals.fri_total }}</th>
+          <th>{{ totals.sat_total }}</th>
+          <th>{{ totals.sun_total }}</th>
+          <th>{{ totals.mon_total|addition:totals.tue_total|addition:totals.wed_total|addition:totals.thu_total|addition:totals.fri_total|addition:totals.sat_total|addition:totals.sun_total }}</th>
+        </tr>
+      </tfooter> </table>
+
+      
+        <form>
+          <a class="w3-btn w3-section w3-red" href="{% url 'timesheets:approval-list' %}">{% trans "Back to list" %}</a>
+          <a class="w3-btn w3-section w3-blue" href="{% url 'timesheets:approval-reject-confirm' timesheet.grouper %}">{% trans "Reject" %}</a>
+          <a class="w3-btn w3-section w3-green" href="{% url 'timesheets:approval-accept-confirm' timesheet.grouper %}">{% trans "Accept" %}</a>
+          </form>
+        </div>
+        <br>
+        {% endfor %}
+     {% else %}
+      <header class="w3-container">
     <h1>{% trans "Approve timesheets" %}</h1>
   </header>  
-  
-    
-    {% if approval_lines %}
-    {% regroup approval_lines by timesheet as timesheet_approval %}
-    {% for timesheet in timesheet_approval %}
-    <div class="w3-container w3-card-4">
-      <h3>Weekly timesheet: <strong title="Year - week number - username">{{ timesheet.grouper }}</strong></h3>
-    <table id='timetable' class="w3-table-all w3-hoverable w3-grey">
-      <thead>
-        <tr class='w3-light-blue'>
-          <th>Accept or Reject</th>
-          <th>Project</th>
-          <th>Task</th>
-          <th>Mon</th>
-          <th>Tue</th>
-          <th>Wed</th>
-          <th>Thu</th>
-          <th>Fri</th>
-          <th>Sat</th>
-          <th>Sun</th>
-          <th>Totals</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for line in timesheet.list %}
-        <tr>
-          <td>
-            <div class="w3-bar">
-              <button class="w3-button w3-ripple w3-text-green"><i class="fa fa-check-square fa-2x"></i></button>
-              <a class="w3-button w3-ripple w3-text-red" href="{% url 'timesheets:rework-comment' %}"><i class="fa fa-times-rectangle fa-2x"></i></a>
-            </div>
-          </td>
-          <td>{{ line.project }}</td>
-          <td>{{ line.task }}</td>
-          <td>{{ line.mon }}</td>
-          <td>{{ line.tue }}</td>
-          <td>{{ line.wed }}</td>
-          <td>{{ line.thu }}</td>
-          <td>{{ line.fri }}</td>
-          <td>{{ line.sat }}</td>
-          <td>{{ line.sun }}</td>
-          <td class='w3-light-blue'>{{ line.mon|addition:line.tue|addition:line.wed|addition:line.thu|addition:line.fri|addition:line.sat|addition:line.sun }}</td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-    <br>
-  </div>
-  <br>
-    {% endfor %}
-    {% else %}
     <div class="w3-container w3-card-4">
       <h5>You have no timesheets to approve!</h5>
+      <a class="w3-btn w3-section w3-red" href="{% url 'timesheets:approval-list' %}">{% trans "Back to list" %}</a>
     </div>
+
     {% endif %}
-  </div>
-<br>
-  <div class="w3-center">
-    <div class="pagination">
-      <h4><strong><small><span class="step-links">
-          {% if page_obj.has_previous %}
-              <a class="w3-badge w3-blue" href="?page=1"><i class="fa fa-angle-double-left"></i></a>
-              <a class="w3-badge w3-blue" href="?page={{ page_obj.previous_page_number }}"><i class="fa fa-angle-left"></i></a>
-          {% endif %}
-
-          <span class="current">
-              Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
-          </span>
-
-          {% if page_obj.has_next %}
-              <a class="w3-badge w3-blue" href="?page={{ page_obj.next_page_number }}"><i class="fa fa-angle-right"></i></a>
-              <a class="w3-badge w3-blue" href="?page={{ page_obj.paginator.num_pages }}"><i class="fa fa-angle-double-right"></i></a>
-          {% endif %}
-      </span></small></strong></h4>
-    </div>
-  </div>
-<br>
+  
 </div>
-
+{% block extra_body %}
+<script>
+  var i = 0;
+  do {
+      var eid = "head"+i;
+      var d = new Date('{{week_start|date:"d M Y"}}');
+      d.setDate(d.getDate() + i);
+      document.getElementById(eid).innerHTML = moment(d).format('ddd Do MMM');
+      i++;
+  }
+  while (i < 7);
+</script>
+{% endblock %}
 {% endblock %}

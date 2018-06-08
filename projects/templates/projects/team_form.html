@@ -31,9 +31,9 @@
   	</tbody>
   </table>
   {% if team %}
-  <a class="w3-button w3-section w3-red w3-ripple" href="{% url 'projects:team-detail' team.id %}">{% trans "Cancel" %}</a>
+  <a class="w3-button w3-section w3-red w3-ripple" href="{% url 'projects:team-detail' team.id %}">{% trans "Edit" %}</a>
   {% else %}
-  <a class="w3-button w3-section w3-red w3-ripple" href="{% url 'projects:team-list' project_id %}">{% trans "Cancel" %}</a>
+  <a class="w3-button w3-section w3-red w3-ripple" href="{% url 'projects:team-list' project_id %}">{% trans "Back to list" %}</a>
   {% endif %}
     <button class="primaryAction w3-button w3-section w3-blue w3-ripple" type="submit">{% trans "Save" %}</button>
     

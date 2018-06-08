@@ -19,6 +19,12 @@ from . import views
 
 app_name = 'invoices'
 urlpatterns = [
-    path('select/', views.project_select, name='project-select'),
-    #path('detail/', views.InvoiceDetails.as_view(), name='invoice-detail'),
+	path('customer/list/', views.CustomerList.as_view(), name='customer-list'),
+    path('customer/<int:pk>/', views.CustomerDetail.as_view(), name='customer-detail'),
+    path('customer/create/', views.CustomerCreate.as_view(), name='customer-create'),
+    path('customer/<int:pk>/update/', views.CustomerUpdate.as_view(), name='customer-update'),
+    path('customer/<int:pk>/delete/', views.CustomerDelete.as_view(), name='customer-delete'),
+    path('invoice/<str:week>/<str:project>/', views.Invoice.as_view(), name='invoice'),
+    path('invoice/settings/', views.InvoiceSettingsEdit.as_view(), name='invoice-settings-edit'),
+    path('params/', views.InvoiceParams.as_view(), name='invoice-params'),    
 ]

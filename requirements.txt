@@ -7,6 +7,7 @@ django-appconf==1.0.2
 django-invitations==1.9.2
 django-mathfilters==0.4.0
 django-select2==6.0.2
+django-simple-history==2.0
 idna==2.6
 oauthlib==2.0.6
 python3-openid==3.1.0

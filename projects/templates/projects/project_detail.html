@@ -35,9 +35,24 @@
     <div class="w3-row">
       <div class="w3-col m3 l3">
         <p><strong>Billable:</strong></p>
+        <p><strong>Status:</strong></p>
       </div>
       <div class="w3-col m8 l9">  
-        <p>{{ project.billable }}</p>
+        {% if project.billable %}
+            <p class="w3-text-green"><i class="fa fa-check-circle fa-lg"></i></p>
+          {% else %}
+            <p class="w3-text-red"><i class="fa fa-times-circle fa-lg"></i></p>
+          {% endif %}
+        </p>
+        <p>{% if project.status == "Active" %}
+            <p class="w3-text-green"><i class="fa fa-check-circle fa-lg"></i></p>
+          {% endif %}
+          {% if project.status == "On Hold" %}
+            <p class="w3-text-red"><i class="fa fa-pause-circle fa-lg"></i></p>
+          {% endif %}
+          {% if project.status == "Closed" %}
+            <p class="w3-text-blue"><i class="fa fa-times-circle fa-lg"></i></p>
+          {% endif %}</p>
       </div>
     </div>
     <div class="w3-row">
@@ -62,7 +77,7 @@
         </p>
       </div>
     </div>
-    <a class="w3-button w3-section w3-red w3-ripple" href="{% url 'projects:project-list' %}">{% trans "Cancel" %}</a>
+    <a class="w3-button w3-section w3-red w3-ripple" href="{% url 'projects:project-list' %}">{% trans "Back to list" %}</a>
     <a class="w3-button w3-section w3-blue w3-ripple" href="{% url 'projects:project-update' project.id %}">{% trans "Edit" %}</a>
     <a class="w3-button w3-section w3-blue w3-ripple" href="{% url 'projects:project-delete' project.id %}">{% trans "Delete" %}</a>
     <a class="w3-button w3-section w3-blue w3-ripple" href="{% url 'projects:project-approvers-update' project.id %}">{% trans "Approvers" %}</a>

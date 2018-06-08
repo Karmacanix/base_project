@@ -1,0 +1,29 @@
+{% extends "site-base.html" %}
+
+{% load static %}
+{% load account %}
+{% load i18n %}
+
+{% block head_title %}{% trans "Invoice Parameters" %}{% endblock %}
+
+{% block content %}
+<div class="w3-container w3-margin-top">
+  <header class="w3-container">
+    <h1>{% trans "Invoice Parameters" %}</h1>
+  </header>
+  <div class="w3-card-4 w3-quarter">
+    <form class="w3-container" method="POST">{% csrf_token %}
+      <br>
+      <div class="w3-row">
+        {{ form.week }}
+      </div>
+      <br>
+      <div class="w3-row">
+        {{ form.project }}
+      </div>
+      <br>
+      <button type="submit" class="w3-button w3-section w3-green w3-ripple w3-right">Create Invoice</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

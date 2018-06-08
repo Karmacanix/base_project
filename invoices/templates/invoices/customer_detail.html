@@ -1,0 +1,40 @@
+{% extends "site-base.html" %}
+
+{% load static %}
+{% load account %}
+{% load i18n %}
+
+{% block head_title %}{% trans "Customer Details" %}{% endblock %}
+
+{% block content %}
+<div class="w3-container w3-half w3-margin-top">
+  <header class="w3-container">
+    <h1>{% trans "Customer Details" %}</h1>
+  </header>
+  <div class="w3-container w3-card-4">
+    <div class="w3-row">
+      <div class="w3-col m4 l3">
+        <p><strong>Trading Name:</strong></p>
+        <p><strong>Customer Reference:</strong></p>
+      </div>
+      <div class="w3-col m8 l9">  
+        <p>{{ customer.trading_name }}</p>
+        <p>{{ customer.cust_ref }}</p>
+      </div>
+    </div>
+    <div class="w3-row">
+      <div class="w3-col m4 l3">
+        <p><strong>Last updated:</strong></p>
+        <p><strong>Created:</strong></p>
+      </div>
+      <div class="w3-col m8 l9">  
+        <p>{{ customer.updated }}</p>
+        <p>{{ customer.created }}</p>
+      </div>
+    </div>
+    <a class="w3-button w3-section w3-red w3-ripple" href="{% url 'invoices:customer-list' %}">{% trans "Back to list" %}</a>
+    <a class="w3-button w3-section w3-blue w3-ripple" href="{% url 'invoices:customer-update' customer.id %}">{% trans "Edit" %}</a>
+    <a class="w3-button w3-section w3-blue w3-ripple" href="{% url 'invoices:customer-delete' customer.id %}">{% trans "Delete" %}</a>
+  </div>
+</div>
+{% endblock %}

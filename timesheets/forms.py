@@ -9,10 +9,10 @@ class TimesheetLineForm(forms.ModelForm):
 	timesheet = forms.ModelChoiceField(
 		queryset=WeekTimesheet.objects.all())
 	project = forms.ModelChoiceField(
-		queryset=Project.objects.all(),
+		queryset=Project.active.all(),
 		required=True,
 		widget=ModelSelect2Widget(
-			model=Project,
+			queryset=Project.active.all(),
 			search_fields=['name__icontains'],
 			attrs={
 				'style': 'width:100%',
@@ -40,3 +40,10 @@ class TimesheetLineForm(forms.ModelForm):
 	class Meta:
 		model = WeekTimesheetLine
 		fields = ['timesheet', 'project', 'task', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun']
+
+
+class TimesheetSubmitForm(forms.ModelForm):
+	
+	class Meta:
+		model = WeekTimesheet
+		fields = ['name', 'status', 'user',]

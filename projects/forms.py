@@ -7,7 +7,7 @@ from invitations.models import Invitation
 class ProjectForm(forms.ModelForm):
 	class Meta:
 		model = Project
-		fields = ['name', 'desc', 'billable', 'start_week', 'end_week']
+		fields = ['name', 'desc', 'status', 'billable', 'start_week', 'end_week']
 		widgets = {
 			'desc': forms.Textarea(),
 			'start_week': forms.TextInput(attrs={'type': 'week'}),
