@@ -41,16 +41,20 @@ html,body,h1,h2,h3,h4,h5 {font-family: 'Lato', sans-serif;}
     <a href="{% url 'home' %}" class="w3-bar-item w3-button w3-padding"><i class="fa fa-home fa-fw"></i>&nbsp; Home</a>
     {% if user.is_authenticated %}
     {% if request.user.is_superuser %}
-      <a href="{% url 'admin:index' %}" class="w3-bar-item w3-button w3-padding"><i class="fa fa-superpowers"></i>&nbsp; Admin</a>
+      <a href="{% url 'admin:index' %}" class="w3-bar-item w3-button w3-padding"><i class="fa fa-user-secret fa-fw"></i>&nbsp; Admin</a>
     {% endif %}
     <a href="{% url 'projects:project-list' %}" class="w3-bar-item w3-button w3-padding"><i class="fa fa-briefcase fa-fw"></i>&nbsp; Projects</a>
     <a href="{% url 'timesheets:timesheet-list' %}" class="w3-bar-item w3-button w3-padding"><i class="fa fa-calendar fa-fw"></i>&nbsp; Timesheets</a>
     <a href="{% url 'timesheets:approval-list' %}" class="w3-bar-item w3-button w3-padding"><i class="fa fa-check-circle fa-fw"></i>&nbsp; Approval</a>
     <a href="{% url 'invitations:invite-list' %}" class="w3-bar-item w3-button w3-padding"><i class="fa fa-handshake-o fa-fw"></i>&nbsp; Invite</a>
-    <a href="{% url 'invoices:invoice-params' %}" class="w3-bar-item w3-button w3-padding"><i class="fa fa-file-pdf-o fa-fw"></i>&nbsp; Invoices</a>
+    <button class="w3-button w3-block w3-left-align" onclick="myAccFuncInv()"><i class="fa fa-file-pdf-o fa-fw"></i>&nbsp; Invoices</button>
+      <div id="demoAccInv" class="w3-bar-block w3-hide w3-white w3-card-4">
+        <a href="{% url 'invoices:invoice-params' %}" class="w3-bar-item w3-button w3-padding"><i class="fa fa-file-pdf-o fa-fw"></i>&nbsp; Create Invoice</a>
+        <a href="{% url 'invoices:settings-list' %}" class="w3-bar-item w3-button"><i class="fa fa-file-text-o fa-fw"></i>&nbsp; Invoice Settings</a>
+        <a href="{% url 'invoices:customer-list' %}" class="w3-bar-item w3-button"><i class="fa fa-address-card-o fa-fw"></i>&nbsp; Manage Customers</a>
+      </div> 
     <button class="w3-button w3-block w3-left-align" onclick="myAccFunc()"><i class="fa fa-user-o fa-fw"></i>&nbsp; Settings</button>
       <div id="demoAcc" class="w3-bar-block w3-hide w3-white w3-card-4">
-        <a href="{% url 'account_email' %}" class="w3-bar-item w3-button"><i class="fa fa-file-text-o fa-fw"></i>&nbsp; Invoice Text</a>
         <a href="{% url 'account_email' %}" class="w3-bar-item w3-button"><i class="fa fa-envelope fa-fw"></i>&nbsp; Change E-mail</a>
         <a href="{% url 'account_change_password' %}" class="w3-bar-item w3-button"><i class="fa fa-key fa-fw"></i>&nbsp; Change Password</a>
       </div>    
@@ -111,6 +115,18 @@ function w3_open() {
 function w3_close() {
     mySidebar.style.display = "none";
     overlayBg.style.display = "none";
+}
+
+function myAccFuncInv() {
+    var x = document.getElementById("demoAccInv");
+    if (x.className.indexOf("w3-show") == -1) {
+        x.className += " w3-show";
+        x.previousElementSibling.className += " w3-green";
+    } else { 
+        x.className = x.className.replace(" w3-show", "");
+        x.previousElementSibling.className = 
+        x.previousElementSibling.className.replace(" w3-green", "");
+    }
 }
 
 function myAccFunc() {

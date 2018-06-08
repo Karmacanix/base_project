@@ -10,6 +10,7 @@ class invoice_parameters(forms.Form):
 	value = current_year+"-W"+current_week
 	week = forms.CharField(max_length=20, widget=forms.TextInput(attrs={'class' : 'w3-input', 'type': 'week', 'value': value}))
 	project = forms.ModelChoiceField(queryset=Project.active.filter(billable=True), required=True, empty_label="Choose a project", widget=forms.Select(attrs={'class' : 'w3-input'}))
+	settings = forms.ModelChoiceField(queryset=InvoiceSettings.objects.all(), required=True, empty_label="Choose your settings", widget=forms.Select(attrs={'class' : 'w3-input'}))
 
 
 class CustomerForm(forms.ModelForm):

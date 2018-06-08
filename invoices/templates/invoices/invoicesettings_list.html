@@ -1,0 +1,53 @@
+{% extends "site-base.html" %}
+
+{% load static %}
+{% load account %}
+{% load i18n %}
+
+{% block head_title %}{% trans "Invoice Settings List" %}{% endblock %}
+
+{% block content %}
+<div class="w3-container w3-margin-top">
+  <header class="w3-container">
+    <h1>{% trans "Invoice Settings List" %}</h1>
+  </header>
+  <div class="w3-container w3-card-4">
+    <br>
+    {% if invoicesettings_list %}
+    <table class="w3-table-all w3-hoverable">
+      <thead>
+        <tr class="w3-grey">
+          <th>{% trans "Name" %}</th>
+          <th>{% trans "Address" %}</th>
+          <th>{% trans "Email" %}</th>
+          <th>{% trans "Phone" %}</th>
+          <th>{% trans "Tax Rate" %}</th>
+          <th>{% trans "Tax Number" %}</th>
+          <th>{% trans "Payment Terms" %}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for invoice_settings in invoicesettings_list %}
+        <tr>
+          <td><a class="w3-text-indigo" href="{{ invoice_settings.get_absolute_url }}">{{ invoice_settings.trading_name }}</a></td>
+          <td>
+            {{ invoice_settings.address_line_1 }},<br>
+            {{ invoice_settings.address_line_2 }},<br>
+            {{ invoice_settings.address_line_3 }}.<br>
+          </td>
+          <td>{{ invoice_settings.email }}</td>
+          <td>{{ invoice_settings.phone }}</td>
+          <td>{{ invoice_settings.tax_rate }}%</td>
+          <td>{{ invoice_settings.tax_number }}</td>
+          <td>{{ invoice_settings.payment_terms }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+      <p>You have no invoice settings.</p>
+    {% endif %}
+      <a class="w3-button w3-section w3-blue w3-ripple" href="{% url 'invoices:settings-create' %}">{% trans "Create New" %}</a>
+  </div>
+</div>
+{% endblock %}
