@@ -7,7 +7,7 @@
 {% block head_title %}{% trans "Invoice Settings Details" %}{% endblock %}
 
 {% block content %}
-<div class="w3-container w3-half w3-margin-top">
+<div class="w3-container w3-third w3-margin-top">
   <header class="w3-container">
     <h1>{% trans "Invoice Settings Details" %}</h1>
   </header>
@@ -15,11 +15,42 @@
     <div class="w3-row">
       <div class="w3-col m4 l3">
         <p><strong>Trading Name:</strong></p>
+        <p><strong>Address:</strong></p>
       </div>
       <div class="w3-col m8 l9">  
         <p>{{ invoicesettings.trading_name }}</p>
+        <p>
+            {{ invoicesettings.address_line_1 }},<br>
+            {{ invoicesettings.address_line_2 }},<br>
+            {{ invoicesettings.address_line_3 }}.<br>
+          </p>
       </div>
     </div>
+    <br>
+     <div class="w3-row">
+      <div class="w3-col m4 l3">
+        <p><strong>Email:</strong></p>
+        <p><strong>Phone:</strong></p>
+      </div>
+      <div class="w3-col m8 l9">
+        <p>{{ invoicesettings.email }}</p>
+        <p>{{ invoicesettings.phone }}</p>
+      </div>
+    </div>
+    <br>
+    <div class="w3-row">
+      <div class="w3-col m4 l3">
+        <p><strong>Tax Rate:</strong></p>
+        <p><strong>Tax Reference:</strong></p>
+        <p><strong>Payment Terms:</strong></p>
+      </div>
+      <div class="w3-col m8 l9">
+        <p>{{ invoicesettings.tax_rate }}%</p>
+        <p>{{ invoicesettings.tax_number }}</p>
+        <p>{{ invoicesettings.payment_terms }}</p>
+      </div>
+    </div>
+    <br>
     <div class="w3-row">
       <div class="w3-col m4 l3">
         <p><strong>Last updated:</strong></p>
@@ -36,3 +67,10 @@
   </div>
 </div>
 {% endblock %}
+
+
+          <p>{{ invoicesettings.email }}</p>
+          <p>{{ invoicesettings.phone }}</p>
+          <p>{{ invoicesettings.tax_rate }}%</p>
+          <p>{{ invoicesettings.tax_number }}</p>
+          <p>{{ invoicesettings.payment_terms }}</p>

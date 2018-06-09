@@ -7,7 +7,7 @@
 {% block head_title %}{% trans "Invoice Settings Form" %}{% endblock %}
 
 {% block content %}
-<div class="w3-container w3-half w3-margin-top">
+<div class="w3-container w3-third w3-margin-top">
 	{% if invoice_settings %}
 <header class="w3-container">
   <h1>{% trans "Edit Invoice Settings" %}</h1>
@@ -30,7 +30,7 @@
   		{% endfor %}
   	</tbody>
   </table>
-  
+  <a class="w3-button w3-section w3-red w3-ripple" href="{% url 'invoices:settings-list' %}">{% trans "Back to list" %}</a>
     <button class="primaryAction w3-button w3-section w3-blue w3-ripple" type="submit">{% trans "Save" %}</button>
 </form>
 </div>

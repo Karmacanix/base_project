@@ -4,12 +4,12 @@
 {% load account %}
 {% load i18n %}
 
-{% block head_title %}{% trans "Customer List" %}{% endblock %}
+{% block head_title %}{% trans "Customers" %}{% endblock %}
 
 {% block content %}
 <div class="w3-container w3-margin-top">
   <header class="w3-container">
-    <h1>{% trans "Customer List" %}</h1>
+    <h1>{% trans "Customers" %}</h1>
   </header>
   <div class="w3-container w3-half w3-card-4">
     <br>
@@ -18,22 +18,24 @@
       <thead>
         <tr class="w3-grey">
           <th>{% trans "Name" %}</th>
-          <th>{% trans "Loop" %}</th>
+          <th>{% trans "Contact" %}</th>
+          <th>{% trans "Reference" %}</th>
         </tr>
       </thead>
       <tbody>
-        {% for project in project_list %}
+        {% for customer in customer_list %}
         <tr>
           <td><a class="w3-text-indigo" href="{{ customer.get_absolute_url }}">{{ customer.trading_name }}</a></td>
-          <td>{% for approvers in project.approvers.all %}{{ approvers }}{% if forloop.last %}.{% else%}, {% endif %}{% endfor %}</td>
+          <td>{{ customer.attention_to }}</td>
+          <td>{{ customer.cust_ref }}</td>
         </tr>
         {% endfor %}
       </tbody>
     </table>
     {% else %}
-      <p>There are no projects.</p>
+      <p>You have no customers to invoice.</p>
     {% endif %}
-      <a class="w3-button w3-section w3-blue w3-ripple" href="{% url 'projects:project-create' %}">{% trans "Create New" %}</a>
+      <a class="w3-button w3-section w3-blue w3-ripple" href="{% url 'invoices:customer-create' %}">{% trans "Create New" %}</a>
   </div>
 </div>
 {% endblock %}

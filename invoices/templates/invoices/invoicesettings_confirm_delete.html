@@ -4,7 +4,7 @@
 {% load account %}
 {% load i18n %}
 
-{% block head_title %}{% trans "Confirm Invoice Settings Delete" %}{% endblock %}
+{% block head_title %}{% trans "Delete Invoice Settings" %}{% endblock %}
 
 {% block content %}
 <div class="w3-container w3-half w3-margin-top">
@@ -12,11 +12,12 @@
     <h1>{% trans "Delete Invoice Settings" %}</h1>
   </header>
   <div class="w3-container w3-card-4">
-  	<p>Are you sure you want to delete the invoice settings: {{ invoicesettings.trading_name }}?</p>
+  	<p>You are about to delete the invoice settings for {{ invoicesettings.trading_name }}.</p>
+    <p><strong>Are you sure?</strong></p>
   	<form action="" method="POST">
   		{% csrf_token %}
-      <a class="w3-button w3-section w3-red w3-ripple" href="{{ invoicesettings.get_absolute_url }}">{% trans "Cancel" %}</a>
-  		<input class="w3-button w3-section w3-blue w3-ripple" type="submit" action="" value="{% trans 'Delete' %}" />
+      <a class="w3-button w3-section w3-red w3-ripple" href="{{ invoicesettings.get_absolute_url }}">{% trans "No" %}</a>
+  		<input class="w3-button w3-section w3-blue w3-ripple" type="submit" action="" value="{% trans 'Yes' %}" />
   	</form>
   </div>
 </div>

@@ -4,6 +4,7 @@ from django.db import models
 from django.urls import reverse
 from django.contrib.auth.models import User
 from simple_history.models import HistoricalRecords
+from invoices.models import Customer
 
 # Create your models here.
 class ActiveProjectManager(models.Manager):
@@ -23,9 +24,11 @@ class Project(models.Model):
 	start_week = models.CharField(max_length=8, help_text="The week the project starts")
 	end_week = models.CharField(max_length=8, help_text="The week the project ends")
 	billable = models.BooleanField(default=True, help_text="Only billable projects can be invoiced")
+	owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="owner")
+	customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
 	created = models.DateTimeField(auto_now_add=True)
 	updated = models.DateTimeField(auto_now=True)
-	approvers = models.ManyToManyField(User)
+	approvers = models.ManyToManyField(User, related_name="approver")
 	objects = models.Manager()
 	active = ActiveProjectManager()
 	history = HistoricalRecords()

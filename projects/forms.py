@@ -2,12 +2,13 @@ from allauth.account.models import EmailAddress
 from django.contrib.auth.models import User
 from django import forms
 from .models import Project, Task, Team
+from invoices.models import Customer
 from invitations.models import Invitation
 
 class ProjectForm(forms.ModelForm):
 	class Meta:
 		model = Project
-		fields = ['name', 'desc', 'status', 'billable', 'start_week', 'end_week']
+		fields = ['name', 'desc', 'status', 'billable', 'start_week', 'end_week', 'customer', 'owner']
 		widgets = {
 			'desc': forms.Textarea(),
 			'start_week': forms.TextInput(attrs={'type': 'week'}),

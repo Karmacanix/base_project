@@ -4,12 +4,12 @@
 {% load account %}
 {% load i18n %}
 
-{% block head_title %}{% trans "Invoice Settings List" %}{% endblock %}
+{% block head_title %}{% trans "Invoice Settings" %}{% endblock %}
 
 {% block content %}
-<div class="w3-container w3-margin-top">
+<div class="w3-container w3-half w3-margin-top">
   <header class="w3-container">
-    <h1>{% trans "Invoice Settings List" %}</h1>
+    <h1>{% trans "Invoice Settings" %}</h1>
   </header>
   <div class="w3-container w3-card-4">
     <br>
@@ -18,11 +18,8 @@
       <thead>
         <tr class="w3-grey">
           <th>{% trans "Name" %}</th>
-          <th>{% trans "Address" %}</th>
-          <th>{% trans "Email" %}</th>
-          <th>{% trans "Phone" %}</th>
           <th>{% trans "Tax Rate" %}</th>
-          <th>{% trans "Tax Number" %}</th>
+          <th>{% trans "Tax Reference" %}</th>
           <th>{% trans "Payment Terms" %}</th>
         </tr>
       </thead>
@@ -30,13 +27,6 @@
         {% for invoice_settings in invoicesettings_list %}
         <tr>
           <td><a class="w3-text-indigo" href="{{ invoice_settings.get_absolute_url }}">{{ invoice_settings.trading_name }}</a></td>
-          <td>
-            {{ invoice_settings.address_line_1 }},<br>
-            {{ invoice_settings.address_line_2 }},<br>
-            {{ invoice_settings.address_line_3 }}.<br>
-          </td>
-          <td>{{ invoice_settings.email }}</td>
-          <td>{{ invoice_settings.phone }}</td>
           <td>{{ invoice_settings.tax_rate }}%</td>
           <td>{{ invoice_settings.tax_number }}</td>
           <td>{{ invoice_settings.payment_terms }}</td>

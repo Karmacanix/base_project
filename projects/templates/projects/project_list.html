@@ -11,7 +11,7 @@
   <header class="w3-container">
     <h1>{% trans "Project List" %}</h1>
   </header>
-  <div class="w3-container w3-half w3-card-4">
+  <div class="w3-container w3-card-4">
     <br>
     {% if project_list %}
     <table class="w3-table-all w3-hoverable">
@@ -22,8 +22,10 @@
           <th class="w3-center">{% trans "Status" %}</th>
           <th>{% trans "Start week" %}</th>
           <th>{% trans "End week" %}</th>
-          <th>{% trans "Tasks" %}</th>
-          <th>{% trans "Team" %}</th>
+          <th>{% trans "Customer" %}</th>
+          <th>{% trans "Owner" %}</th>
+           <th>{% trans "Tasks" %}</th>
+          <th>{% trans "Team" %}</th>          
           <th>{% trans "Approvers" %}</th>
         </tr>
       </thead>
@@ -47,6 +49,8 @@
           {% endif %}
           <td>{{ project.start_week }}</td>
           <td>{{ project.end_week }}</td>
+        <td>{{ project.customer }}</td>
+       <td>{{ project.owner }}</td>
           <td><a class="w3-text-indigo" href="{% url 'projects:task-list' project.id %}">{% trans "View Tasks" %}</a></td>
           <td><a class="w3-text-indigo" href="{% url 'projects:team-list' project.id %}">{% trans "View Team" %}</a></td>
           <td>{% for approvers in project.approvers.all %}{{ approvers }}{% if forloop.last %}.{% else%}, {% endif %}{% endfor %}</td>
