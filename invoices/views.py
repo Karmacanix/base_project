@@ -3,13 +3,12 @@ from django.shortcuts import render, redirect
 from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView, FormView
-from reportlab.pdfgen import canvas
-from projects.models import Project, Team
-from timesheets.models import WeekTimesheet, WeekTimesheetLine
 from invoices.models import Customer, InvoiceSettings
 from invoices.forms import invoice_parameters, CustomerForm, InvoiceSettingsForm
+from projects.models import Project, Team
+from timesheets.models import WeekTimesheet, WeekTimesheetLine
 
-# Create your views here.
+
 class InvoiceParams(FormView):
 	form_class = invoice_parameters
 	template_name = 'invoices/invoice_params.html'
