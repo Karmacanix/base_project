@@ -11,13 +11,14 @@
   <header class="w3-container">
     <h1>{% trans "Delete Project" %}</h1>
   </header>
-  <div class="w3-container w3-card-4">
-  	<p>You are about to delete the project: {{ project }}</p>
-    <p><strong>Are you sure?</strong></p>
+  <div class="w3-container w3-panel w3-red w3-card-4">
+    <h3>Warning!</h3>
+  	<p>You are about to delete -   <strong>{{ project|upper }}</strong></p>
+    <h5><strong>Are you sure?</strong></h5>
   	<form action="" method="POST">
   		{% csrf_token %}
-      <a class="w3-button w3-section w3-red w3-ripple" href="{{ project.get_absolute_url }}">{% trans "No" %}</a>
-  		<input class="w3-button w3-section w3-blue w3-ripple" type="submit" action="" value="{% trans 'Yes' %}" />
+      <a class="w3-btn w3-section w3-blue" href="{{ project.get_absolute_url }}">{% trans "No" %}</a>
+  		<input class="w3-btn w3-section w3-green" type="submit" value="{% trans 'Yes' %}" />
   	</form>
   </div>
 </div>

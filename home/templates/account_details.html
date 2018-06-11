@@ -1,0 +1,36 @@
+{% extends "site-base.html" %}
+
+{% load static %}
+{% load account %}
+{% load i18n %}
+
+{% block head_title %}{% trans "Account Details" %}{% endblock %}
+
+{% block content %}
+<div class="w3-container w3-third w3-margin-top">
+  <header class="w3-container">
+    <h1>{% trans "Account Details" %}</h1>
+  </header>
+  {% if account_details %}
+    <form class="w3-container w3-card-4" action="" method="post">
+      {% csrf_token %}
+      <br/>
+      <table>
+        <tbody>
+          {% for field in form %}     
+            <tr>
+              <td>{{ field.label }}</td>
+              <td><div class="w3-padding">{{ field }}</div></td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <a class="w3-button w3-section w3-red w3-ripple" href="{% url 'invoices:settings-list' %}">{% trans "Back to list" %}</a>
+      <button class="primaryAction w3-button w3-section w3-blue w3-ripple" type="submit">{% trans "Save" %}</button>
+    </form>
+  {% else %}
+  <p>You have no account details.</p>
+  {% endif %}
+</div>
+
+{% endblock %}

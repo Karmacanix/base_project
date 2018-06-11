@@ -28,7 +28,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: 'Lato', sans-serif;}
 <div class="w3-bar w3-top w3-black w3-large" style="z-index:4">
   <div class="w3-container w3-row">
     <button class="w3-bar-item w3-button w3-hover-none w3-hover-text-light-grey" onclick="w3_open();"><i class="fa fa-bars"></i></button>
-    <span class="w3-bar-item w3-left"><a href="{% url 'home' %}"><strong>WeeklySheets</strong></a></span>
+    <span class="w3-bar-item w3-left"><a href="{% url 'home' %}"><strong>TimeBilla</strong></a></span>
     {% if user.is_authenticated %}
       <span class="w3-bar-item w3-text-green">{% trans "hello" %} {% user_display user %}</span>
     {% endif %}
@@ -55,6 +55,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: 'Lato', sans-serif;}
       </div> 
     <button class="w3-button w3-block w3-left-align" onclick="myAccFunc()"><i class="fa fa-user-o fa-fw"></i>&nbsp; Settings</button>
       <div id="demoAcc" class="w3-bar-block w3-hide w3-white w3-card-4">
+        <a href="{% url 'account-details' user.id %}" class="w3-bar-item w3-button"><i class="fa fa-envelope fa-fw"></i>&nbsp; Account Details</a>
         <a href="{% url 'account_email' %}" class="w3-bar-item w3-button"><i class="fa fa-envelope fa-fw"></i>&nbsp; Change E-mail</a>
         <a href="{% url 'account_change_password' %}" class="w3-bar-item w3-button"><i class="fa fa-key fa-fw"></i>&nbsp; Change Password</a>
       </div>    
@@ -75,15 +76,19 @@ html,body,h1,h2,h3,h4,h5 {font-family: 'Lato', sans-serif;}
 <div class="w3-main" style="margin-left:200px;margin-top:43px;">
 
 <!-- message -->
-  {% if messages %}
-  <div class="w3-panel w3-light-blue">
-    <ul>
-      {% for message in messages %}
-        <li>{{message}}</li>
-      {% endfor %}
-    </ul>
-  </div>
-  {% endif %}
+{% if messages %}
+  {% for message in messages %}
+    {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+      <div class="w3-panel w3-green">
+        <p>{{ message }}</p>
+      </div> 
+    {% else %}
+      <div class="w3-panel w3-light-blue">
+        <p>{{ message }}</p>
+      </div> 
+    {% endif %}
+  {% endfor %}
+{% endif %}
   
   {% block content %}
   {% endblock %}
@@ -102,7 +107,7 @@ var overlayBg = document.getElementById("myOverlay");
 
 // Toggle between showing and hiding the sidebar, and add overlay effect
 function w3_open() {
-    if (mySidebar.style.display === 'block') {
+    if (mySidebar.style.display == 'block') {
         mySidebar.style.display = 'none';
         overlayBg.style.display = "none";
     } else {

@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
-from home.views import home
+from home.views import home, AccountDetailsUpdate
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -25,5 +25,6 @@ urlpatterns = [
     path('projects/', include('projects.urls', namespace='projects')),
     path('timesheets/', include('timesheets.urls', namespace='timesheets')),
     path('select2/', include('django_select2.urls')),
-    path('', home, name='home')
+    path('', home, name='home'),
+    path('<int:pk>/account/details/', AccountDetailsUpdate.as_view(), name='account-details')
 ]

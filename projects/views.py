@@ -1,4 +1,6 @@
 # django
+from django.contrib import messages
+from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
@@ -18,17 +20,40 @@ class ProjectList(ListView):
 class ProjectDetail(DetailView):
     model = Project
 
-class ProjectCreate(CreateView):
+class ProjectCreate(SuccessMessageMixin, CreateView):
+
+    def get_form_kwargs(self):
+        kwargs = super(ProjectCreate, self).get_form_kwargs()
+        kwargs.update({'user': self.request.user})
+        return kwargs
+
     model = Project
     form_class = ProjectForm
+    success_message = 'Project successfully created!'
 
-class ProjectUpdate(UpdateView):
+
+class ProjectUpdate(SuccessMessageMixin, UpdateView):
+
+    def get_form_kwargs(self):
+        kwargs = super(ProjectUpdate, self).get_form_kwargs()
+        kwargs.update({'user': self.request.user})
+        return kwargs
+
     model = Project
     form_class = ProjectForm
+    success_message = 'Project successfully saved!'
 
-class ProjectDelete(DeleteView):
+
+class ProjectDelete(SuccessMessageMixin, DeleteView):
     model = Project
     success_url = reverse_lazy('projects:project-list')
+    success_message = "Project successfully deleted!"
+
+    def delete(self, request, *args, **kwargs):
+        obj = self.get_object()
+        messages.success(self.request, self.success_message % obj.__dict__)
+        return super(ProjectDelete, self).delete(request, *args, **kwargs)
+
 
 class ProjectApproversCreate(CreateView):
     model = Project

@@ -6,13 +6,44 @@ from invoices.models import Customer
 from invitations.models import Invitation
 
 class ProjectForm(forms.ModelForm):
+	
+	def __init__(self, *args, **kwargs):
+		# add user to form kwargs
+		self.user = kwargs.pop('user')
+		super(ProjectForm, self).__init__(*args, **kwargs)
+		# build approvers list
+		# use the current user's invited emails list, if invited email is verified get username, query user table to ensure they are registered
+		invite_email_list = Invitation.objects.filter(inviter=self.user).values_list('email', flat=True)
+		invite_user_list = list(EmailAddress.objects.filter(email__in=invite_email_list).values_list('user', flat=True))
+		invite_user_list.append(self.user.id)
+		APPROVERS_LIST = User.objects.filter(id__in=invite_user_list)
+
+		self.fields['owner'] = forms.ModelChoiceField(
+			queryset=APPROVERS_LIST, 
+			initial=self.user,
+			required=True,
+			widget=forms.Select(attrs={'class' : 'w3-input'}),
+			)
+	
+		self.fields['approvers'] = forms.ModelMultipleChoiceField(
+            queryset=APPROVERS_LIST,
+            initial=self.user,
+            required=True,
+            widget=forms.CheckboxSelectMultiple(attrs={'class' : 'w3-check', 'type': 'checkbox'})
+            )
+
+
 	class Meta:
 		model = Project
-		fields = ['name', 'desc', 'status', 'billable', 'start_week', 'end_week', 'customer', 'owner']
-		widgets = {
-			'desc': forms.Textarea(),
-			'start_week': forms.TextInput(attrs={'type': 'week'}),
-			'end_week': forms.TextInput(attrs={'type': 'week'})
+		fields = ['name', 'desc', 'status', 'billable', 'start_week', 'end_week', 'customer', 'owner', 'approvers']
+		widgets = {			
+			'name': forms.TextInput(attrs={'class' : 'w3-input'}),
+			'desc': forms.Textarea(attrs={'class' : 'w3-input w3-border', 'cols': '40', 'rows': '3'}),
+			'status': forms.Select(attrs={'class' : 'w3-select'}),
+			'billable': forms.CheckboxInput(attrs={'class' : 'w3-check'}),
+			'start_week': forms.TextInput(attrs={'type': 'week', 'class' : 'w3-input'}),
+			'end_week': forms.TextInput(attrs={'type': 'week', 'class' : 'w3-input'}),
+			'customer': forms.Select(attrs={'class' : 'w3-select'}),
 		}
 
 class ProjectApproversForm(forms.ModelForm):
