@@ -42,10 +42,10 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-    'bootstrapform',
 
     #me
     'home',
+    'assessment',
 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -67,12 +67,14 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'iam.urls'
-print ("base dir path", BASE_DIR)
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
             os.path.join(BASE_DIR, "home"),
+            os.path.join(BASE_DIR, 'templates'),
+            os.path.join(BASE_DIR, 'templates', 'allauth'),
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -135,9 +137,12 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
+
+STATIC_ROOT = os.path.join(BASE_DIR, "home", "static")
+
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),
-    '/var/www/static/',
+    os.path.join(STATIC_ROOT, "home"),
+    os.path.join(STATIC_ROOT, "who"),
 ]
 
 STATIC_URL = '/static/'

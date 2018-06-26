@@ -8,18 +8,27 @@
 
 {% block content %}
 
-  {% if user.is_authenticated %}
-  <div class="w3-container w3-half w3-margin-top">
-    <header class="w3-container">
-      <h1>{% trans "My Dashboard" %}</h1>
+  <!-- Header -->
+   <!-- Header -->
+  <div class="w3-container w3-margin-top">
+    <header class="w3-black w3-opacity w3-padding-16">
+      <h1 class="w3-margin">3DHB ICT Application Assessment Service</h1>
     </header>
-    <div class="w3-row-padding w3-margin-bottom">
-      <p>Welcome back {% user_display user %}</p>
+    <br>
+    <div class="w3-row">
+      <div class="w3-col m8 l8">
+        <h1 class="w3-padding-16">Discovered a mobile or cloud app that will help us deliver better healthcare?</h1>
+      </div>
+      <div class="w3-col m4 l4">
+        <h3 class="w3-center"><i class="fa fa-plus fa-3x w3-padding-16 w3-text-red"></i></h3>
+      </div>
     </div>
-  {% else %}
-    <div class="w3-row-padding w3-margin-bottom">
-      <p>Hi there, welcome to Workar, please <a href="{% url 'account_login' %}"><i class="fa fa-users fa-fw"></i>&nbsp; Sign In</a> or <a href="{% url 'account_signup' %}"><i class="fa fa-eye fa-fw"></i>&nbsp; Sign Up</a></p>
-    </div>
-  {% endif %}
+    <h2 class="w3-padding-16">We need to make sure it's private, secure and compliant.</h2>
+    <h3 class="w3-text-grey w3-padding-16"><strong><a href="{% url 'assessment:application-create' %}">Answer a few questions.</a> We'll assess the risks, approve it for hospital use & we'll publish it to <a href="{% url 'assessment:application-list' %}">our list of available apps.</a></strong></h3>
+     <a class="w3-btn w3-red w3-padding-large w3-large" href="{% url 'assessment:application-create' %}"><strong>ASSESS APPLICATION</strong></a>
+     <a class="w3-btn w3-section w3-padding-large w3-large w3-green w3-ripple" href="{% url 'assessment:application-list' %}"><strong>APPLICATION LIST</strong></a>
+  </div>
+  
+
 
 {% endblock %}

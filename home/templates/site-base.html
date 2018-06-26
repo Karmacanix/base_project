@@ -12,63 +12,57 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
-html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
+body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
+.w3-bar,h1,button {font-family: "Montserrat", sans-serif}
+.fa-anchor,.fa-coffee {font-size:200px}
 </style>
 
 <!-- body -->
 <body class="w3-light-grey">
 
 <!-- Top container -->
-<div class="w3-bar w3-top w3-black w3-large" style="z-index:4">
-  <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" onclick="w3_open();"><i class="fa fa-bars"></i> &nbsp;Menu</button>
-  <span class="w3-bar-item w3-right">Karmacanix</span>
+<!-- Navbar -->
+<div class="w3-top">
+  <div class="w3-bar w3-red w3-card w3-left-align w3-large">
+    <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-red" href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
+    <a href="{% url 'home' %}" class="w3-bar-item w3-button w3-padding-large w3-white">Home</a>
+    <a href="{% url 'assessment:application-list' %}" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Applications</a>
+    <a href="{% url 'what' %}" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Assessment Guide</a>
+    <a href="{% url 'who' %}" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Team</a>
+    <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Contact</a>
+    {% if request.user.is_superuser %}
+      <a href="{% url 'admin:index' %}" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Admin</a>
+    {% endif %}
+    {% if user.is_authenticated %}
+      <a href="{% url 'account_logout' %}" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Logout</a>
+    {% else %}
+      <a href="{% url 'account_login' %}" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Login</a>
+    {% endif %}
+  </div>
+
+  <!-- Navbar on small screens -->
+  <div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium w3-large">
+    <a href="{% url 'assessment:application-list' %}" class="w3-bar-item w3-button w3-padding-large">Applications</a>
+    <a href="{% url 'what' %}" class="w3-bar-item w3-button w3-padding-large">Assessment Guide</a>
+    <a href="{% url 'who' %}" class="w3-bar-item w3-button w3-padding-large">Team</a>
+    <a href="#" class="w3-bar-item w3-button w3-padding-large">Contact</a>
+    {% if request.user.is_superuser %}
+      <a href="{% url 'admin:index' %}" class="w3-bar-item w3-button w3-padding-large">Admin</a>
+    {% endif %}
+    {% if user.is_authenticated %}
+      <a href="{% url 'account_logout' %}" class="w3-bar-item w3-button w3-padding-large">Logout</a>
+    {% else %}
+      <a href="{% url 'account_login' %}" class="w3-bar-item w3-button w3-padding-large">Login</a>
+    {% endif %}
+  </div>
 </div>
 
-<!-- Sidebar/menu -->
-<nav class="w3-sidebar w3-collapse w3-white w3-animate-left" style="z-index:3;width:300px;" id="mySidebar"><br>
-  {% if user.is_authenticated %}
-  <div class="w3-container w3-row">
-    <div class="w3-col s4">
-      <img src="{% static 'home/avatar2.png' %}" class="w3-circle w3-margin-right" style="width:46px">
-    </div>
-    <div class="w3-col s8 w3-bar">
-      <span>Welcome, <strong>{% user_display user %}</strong></span><br>
-      <a href="#" class="w3-bar-item w3-button"><i class="fa fa-cog"></i></a>
-      <a href="{% url 'account_logout' %}" class="w3-bar-item w3-button"><i class="fa fa-power-off"></i></a>
-    </div>
-  </div>
-  <hr>
-  {% endif %}
-  <div class="w3-container">
-    <h3>Menu</h3>
-  </div>
-  <div class="w3-bar-block">
-    <a href="{% url 'home' %}" class="w3-bar-item w3-button w3-padding"><i class="fa fa-home fa-fw"></i>&nbsp; Home</a>
-    {% if user.is_authenticated %}
-      <button class="w3-button w3-block w3-left-align" onclick="myAccFunc()"><i class="fa fa-cog fa-fw"></i>&nbsp; Settings</button>
-      <div id="demoAcc" class="w3-bar-block w3-hide w3-white w3-card-4">
-        <a href="{% url 'account_email' %}" class="w3-bar-item w3-button"><i class="fa fa-envelope fa-fw"></i>&nbsp; Change E-mail</a>
-        <a href="{% url 'account_change_password' %}" class="w3-bar-item w3-button"><i class="fa fa-key fa-fw"></i>&nbsp; Change Password</a>
-      </div>    
-      <a href="{% url 'account_logout' %}" class="w3-bar-item w3-button w3-padding"><i class="fa fa-power-off fa-fw"></i>&nbsp; Sign Out</a>
-    {% else %}
-      <a href="{% url 'account_login' %}" class="w3-bar-item w3-button w3-padding"><i class="fa fa-users fa-fw"></i>&nbsp; Sign In</a>
-      <a href="{% url 'account_signup' %}" class="w3-bar-item w3-button w3-padding"><i class="fa fa-eye fa-fw"></i>&nbsp; Sign Up</a>
-    {% endif %}
-    <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()" title="close menu"><i class="fa fa-remove fa-fw"></i>&nbsp; Close Menu</a>  
-  </div>
-</nav>
-
-<!-- Overlay effect when opening sidebar on small screens -->
-<div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
-
-
-
 <!-- !PAGE CONTENT! -->
-<div class="w3-main" style="margin-left:300px;margin-top:43px;">
+<div class="w3-main" style="margin-top:43px;">
 
 <!-- message -->
   {% if messages %}
@@ -84,67 +78,33 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
  
   {% block content %}
   {% endblock %}
-  
-  <hr>
-    <!-- Footer -->
-  <footer class="w3-container w3-padding-16 w3-light-grey">
-    <hr>
-    <p>Karmacanix 2017</p>
-  </footer>
 
-  <!-- End page content -->
 </div>
 
+<!-- Footer -->
+<footer class="w3-container w3-padding-64 w3-center w3-opacity">  
+ <p>Powered by 3DHB</p>
+</footer>
+{% block extra_body %}
+{% endblock %}
+
 <script>
-// Get the Sidebar
-var mySidebar = document.getElementById("mySidebar");
-
-// Get the DIV with overlay effect
-var overlayBg = document.getElementById("myOverlay");
-
-// Toggle between showing and hiding the sidebar, and add overlay effect
-function w3_open() {
-    if (mySidebar.style.display === 'block') {
-        mySidebar.style.display = 'none';
-        overlayBg.style.display = "none";
-    } else {
-        mySidebar.style.display = 'block';
-        overlayBg.style.display = "block";
-    }
-}
-
-// Close the sidebar with the close button
-function w3_close() {
-    mySidebar.style.display = "none";
-    overlayBg.style.display = "none";
-}
-
-function myAccFunc() {
-    var x = document.getElementById("demoAcc");
+// Used to toggle the menu on small screens when clicking on the menu button
+function myFunction() {
+    var x = document.getElementById("navDemo");
     if (x.className.indexOf("w3-show") == -1) {
         x.className += " w3-show";
-        x.previousElementSibling.className += " w3-green";
     } else { 
         x.className = x.className.replace(" w3-show", "");
-        x.previousElementSibling.className = 
-        x.previousElementSibling.className.replace(" w3-green", "");
-    }
-}
-
-function myDropFunc() {
-    var x = document.getElementById("demoDrop");
-    if (x.className.indexOf("w3-show") == -1) {
-        x.className += " w3-show";
-        x.previousElementSibling.className += " w3-green";
-    } else { 
-        x.className = x.className.replace(" w3-show", "");
-        x.previousElementSibling.className = 
-        x.previousElementSibling.className.replace(" w3-green", "");
     }
 }
 </script>
-{% block extra_body %}
-{% endblock %}
+
+
+
+ 
+
+
 
 </body>
 </html>

@@ -1,0 +1,55 @@
+{% extends "site-base.html" %}
+
+{% load static %}
+{% load account %}
+{% load i18n %}
+
+{% block head_title %}{% trans "Help" %}{% endblock %}
+
+{% block content %}
+
+  <!-- Header -->
+<div class="w3-container w3-margin-top">
+  <header class="w3-black w3-opacity w3-padding-16">
+    <h1 class="w3-margin">Help</h1>
+  </header>
+  <br>
+  <div class="w3-row w3-card-4">
+
+    <table class="w3-table-all w3-hoverable">
+    <thead>
+      <th>Actor</th>
+      <th>Role</th>
+      <th>Group</th>
+      <th>Inbox</th>
+    </thead>
+    <tbody>
+      <tr class="w3-padding w3-border w3-pale-yellow">
+        <td>Personal health information</td>
+        <td>{% if informationclassification.medical_in_confidence %}<span class='w3-text-green'><i class="fa fa-check-circle fa-fw fa-2x"></i></span>{% else %}<span class='w3-text-red'><i class="fa fa-times-circle fa-fw fa-2x"></i></span>{% endif %}</td>
+        <td>MEDICAL IN CONFIDENCE</td>
+      </tr>
+    <div class="w3-col m4 l4">
+      <div class="w3-container w3-center">
+        <h3>ICT Security</h3>
+        <img src="{% static 'who/avatar3.png' %}" alt="Avatar" style="width:80%">
+        <h5>John</h5>
+      </div>
+    </div>
+    <div class="w3-col m4 l4">
+      <div class="w3-container w3-center">
+        <h3>Privacy</h3>
+        <img src="{% static 'who/avatar5.png' %}" alt="Avatar" style="width:80%">
+        <h5>Cate</h5>
+      </div>
+    </div>
+    <div class="w3-col m4 l4">
+      <div class="w3-container w3-center">
+        <h3>Business Owner</h3>
+        <img src="{% static 'who/avatar2.png' %}" alt="Avatar" style="width:80%">
+        <h5>You</h5>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
