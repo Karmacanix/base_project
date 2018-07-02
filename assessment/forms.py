@@ -1,7 +1,7 @@
 #from allauth.account.models import EmailAddress
 #from django.contrib.auth.models import User
 from django import forms
-from .models import Application, InformationClassification, CloudQuestionnaire #, PrivacyAssessment, NonFunctionals
+from .models import Application, InformationClassification, CloudQuestionnaire, CloudICTBriefCloudRiskAssessment #, PrivacyAssessment, NonFunctionals
 
 class ApplicationForm(forms.ModelForm):
 	
@@ -49,6 +49,19 @@ class CloudQuestionnaireForm(forms.ModelForm):
 			'loss_risk': forms.CheckboxInput(attrs={'class' : 'w3-check'}),
 			'continuity_risk': forms.CheckboxInput(attrs={'class' : 'w3-check'}),
 		}
+
+
+class CloudICTBriefCloudRiskAssessmentForm(forms.ModelForm):
+	
+ 	class Meta:
+ 		model = CloudICTBriefCloudRiskAssessment
+ 		fields = '__all__'
+ 	# 	widgets = {			
+		# 	'disclosure_risk': forms.CheckboxInput(attrs={'class' : 'w3-check'}),
+		# 	'alteration_risk': forms.CheckboxInput(attrs={'class' : 'w3-check'}),
+		# 	'loss_risk': forms.CheckboxInput(attrs={'class' : 'w3-check'}),
+		# 	'continuity_risk': forms.CheckboxInput(attrs={'class' : 'w3-check'}),
+		# }
 
 
 # class PrivacyAssessmentForm(forms.ModelForm):

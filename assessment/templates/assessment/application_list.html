@@ -10,19 +10,17 @@
 <!-- Header -->
 <div class="w3-container w3-margin-top">
   <header class="w3-black w3-opacity w3-padding-16">
-    <h1 class="w3-margin">Available Applications</h1>
+    <h1 class="w3-margin">Available Apps</h1>
   </header>
   
     <br>
     {% if application_list %}
-    <table class="w3-table-all w3-hoverable">
+    <table class="w3-table-all w3-hoverable w3-card-4">
       <thead>
         <tr class="w3-light-grey">
           <th>{% trans "Name" %}</th>
           <th>{% trans "Purpose" %}</th>
           <th>{% trans "Type" %}</th>
-          <th>{% trans "Owner" %}</th>
-          <th>{% trans "Vendor Website" %}</th>
           <th>{% trans "Cost" %}</th>
         </tr>
       </thead>
@@ -32,8 +30,6 @@
           <td><a class="w3-text-indigo" href="{% url 'assessment:application-detail' application.name %}">{{ application.name }}</a></td>
           <td>{{ application.purpose }}</td>
           <td>{{ application.get_application_type_display }}</td>
-          <td>{{ application.business_owner.first_name }} {{ application.business_owner.last_name }}</td>
-          <td><a class="w3-text-indigo" href="{{ application.website }}">{{ application.website }}</a></td>
           <td>${{ application.cost }} {{ application.get_cost_type_display }}</td>
         </tr>
         {% endfor %}

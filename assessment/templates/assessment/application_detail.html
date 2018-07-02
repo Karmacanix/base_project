@@ -11,7 +11,7 @@
 <div class="w3-container w3-margin-top">
 <br>
   <div class="w3-bar">
-    <button class="w3-bar-item w3-button tablink w3-red" onclick="openAppl(event,'Application')"><h4><strong>Application</strong></h4></button>
+    <button class="w3-bar-item w3-button tablink w3-grey" onclick="openAppl(event,'Application')"><h4><strong>Application</strong></h4></button>
     <button class="w3-bar-item w3-button tablink" onclick="openAppl(event,'Assessments')"><h4><strong>Assessments</strong></h4></button>
     <button class="w3-bar-item w3-button tablink"></button>
   </div>
@@ -45,14 +45,19 @@
     <div class="w3-row">
       <ul class="w3-ul">
         {% if ic %}  
-          <li><a href="{% url 'assessment:informationclassification-detail' application.name %}">{% trans "View Information Classification" %}</a></li>
+          <li><span class='w3-text-green'><i class="fa fa-check-circle fa-fw"></i></span><a href="{% url 'assessment:informationclassification-detail' application.name %}">{% trans "View Information Classification" %}</a></li>
         {% else %}
-          <li><a href="{% url 'assessment:informationclassification-create' application.name %}">{% trans "Start Information Classification" %}</a></li>
+          <li><span class='w3-text-red'><i class="fa fa-times-circle fa-fw fa-1x"></i></span><a href="{% url 'assessment:informationclassification-create' application.name %}">{% trans "Start Information Classification" %}</a></li>
         {% endif %}
         {% if cl %}  
-          <li><a href="{% url 'assessment:cloudquestionnaire-detail' application.name %}">{% trans "View Cloud Questionnaire" %}</a></li>
+          <li><span class='w3-text-green'><i class="fa fa-check-circle fa-fw"></i></span><a href="{% url 'assessment:cloudquestionnaire-detail' application.name %}">{% trans "View Cloud Questionnaire" %}</a></li>
         {% else %}
-          <li><a href="{% url 'assessment:cloudquestionnaire-create' application.name %}">{% trans "Start Cloud Questionnaire" %}</a></li>
+          <li><span class='w3-text-red'><i class="fa fa-times-circle fa-fw fa-1x"></i></span><a href="{% url 'assessment:cloudquestionnaire-create' application.name %}">{% trans "Start Cloud Questionnaire" %}</a></li>
+        {% endif %}
+        {% if bc %}  
+          <li><span class='w3-text-green'><i class="fa fa-check-circle fa-fw"></i></span><a href="{% url 'assessment:ictbriefcloudriskassessment-detail' application.name %}">{% trans "View ICT Brief Cloud Risk Assessment" %}</a></li>
+        {% else %}
+          <li><span class='w3-text-red'><i class="fa fa-times-circle fa-fw fa-1x"></i></span><a href="{% url 'assessment:ictbriefcloudriskassessment-create' application.name %}">{% trans "Start ICT Brief Cloud Risk Assessment" %}</a></li>
         {% endif %}
     </div>
 
@@ -73,10 +78,10 @@ function openAppl(evt, applName) {
   }
   tablinks = document.getElementsByClassName("tablink");
   for (i = 0; i < x.length; i++) {
-      tablinks[i].className = tablinks[i].className.replace(" w3-red", "");
+      tablinks[i].className = tablinks[i].className.replace(" w3-grey", "");
   }
   document.getElementById(applName).style.display = "block";
-  evt.currentTarget.className += " w3-red";
+  evt.currentTarget.className += " w3-grey";
 }
 </script>
 

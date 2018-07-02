@@ -4,21 +4,21 @@
 {% load account %}
 {% load i18n %}
 
-{% block head_title %}{% trans "Cloud Questionnaire Form" %}{% endblock %}
+{% block head_title %}{% trans "ICT Brief Cloud Risk Assessment Form" %}{% endblock %}
 
 {% block content %}<!-- Header -->
 <div class="w3-container w3-margin-top">
   <header class="w3-black w3-opacity w3-padding-16">
-    {% if cloudquestionnaire %}
-      <h1 class="w3-margin">Edit cloud questionnaire</h1>
+    {% if cloudictbriefcloudriskassessment %}
+      <h1 class="w3-margin">Edit ICT brief cloud risk assessment</h1>
     {% else %}
-      <h1 class="w3-margin">New cloud questionnaire</h1>
+      <h1 class="w3-margin">New ICT brief cloud risk assessment</h1>
     {% endif %}
   </header>
   <br>
 <form class="w3-container w3-card-4" action="" method="post">
    {% csrf_token %}
-   <h4>Cloud Questionnaire</h4>
+   <h4>ICT Brief Cloud Risk Assessment</h4>
   <ul class="w3-ul w3-border">
         {% for field in form %}
           {% if field == form.app %}

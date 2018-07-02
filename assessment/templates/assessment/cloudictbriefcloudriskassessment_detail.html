@@ -1,0 +1,57 @@
+{% extends "site-base.html" %}
+
+{% load static %}
+{% load account %}
+{% load i18n %}
+
+{% block head_title %}{% trans "ICT Brief Cloud Risk Assessment" %}{% endblock %}
+
+
+{% block content %}
+<!-- Header -->
+<div class="w3-container w3-margin-top">
+  <header class="w3-black w3-opacity w3-padding-16">
+    <h1 class="w3-margin">ICT Brief Cloud Risk Assessment</h1>
+  </header>
+  <br>
+  <div class="w3-container w3-card-4">
+
+
+
+   <h4>ICT Brief Cloud Risk Assessment</h4>
+    <span hidden>{{ cloudictbriefcloudriskassessment.app }}</span>
+  <table class="w3-table-all w3-hoverable">
+    <thead>
+      <th>Description</th>
+      <th>Your answer</th>
+    </thead>
+    <tbody>
+      <tr class="w3-padding w3-border">
+        <td>{{ cloudictbriefcloudriskassessment.get_termsconditions_URL_help_text }}</td>
+        <td><a href="{{ cloudictbriefcloudriskassessment.termsconditions_URL }}">{{ cloudictbriefcloudriskassessment.termsconditions_URL }}</a></td>
+      </tr>
+      <tr class="w3-padding w3-border">
+        <td>{{ cloudictbriefcloudriskassessment.get_privacypolicy_URL_help_text }}</td>
+        <td><a href="{{ cloudictbriefcloudriskassessment.privacypolicy_URL }}">{{ cloudictbriefcloudriskassessment.privacypolicy_URL }}</a></td>
+      </tr>
+      <tr class="w3-padding w3-border">
+        <td>{{ cloudictbriefcloudriskassessment.get_dhb_record_volume_help_text }}</td>
+        <td>{{ cloudictbriefcloudriskassessment.get_dhb_record_volume_display }} of records.</td>
+      </tr>
+      <tr class="w3-padding w3-border">
+        <td>{{ cloudictbriefcloudriskassessment.get_dhb_downtime_before_critical_help_text }}</td>
+        <td>{{ cloudictbriefcloudriskassessment.get_dhb_downtime_before_critical_display }} before the service is interrupted.</td>
+      </tr>
+      <tr class="w3-padding w3-border">
+        <td>{{ cloudictbriefcloudriskassessment.get_dhb_log_data_changes_help_text }}</td>
+        <td>{{ cloudictbriefcloudriskassessment.get_dhb_log_data_changes_display }} data loss logged/alerted.</td>
+      </tr>
+    </tbody>
+  </table><br/> 
+    
+    <a class="w3-button w3-section w3-red w3-large w3-ripple" href="{% url 'assessment:application-detail' cloudictbriefcloudriskassessment.app %}">{% trans "Cancel" %}</a>
+    <a class="w3-button w3-section w3-blue w3-large w3-ripple" href="{% url 'assessment:ictbriefcloudriskassessment-update' cloudictbriefcloudriskassessment.app %}">{% trans "Edit" %}</a>
+    <a class="w3-button w3-section w3-orange w3-large w3-ripple" href="{% url 'assessment:ictbriefcloudriskassessment-delete' cloudictbriefcloudriskassessment.app %}">{% trans "Delete" %}</a>
+  </div>
+</div>
+{% endblock %}

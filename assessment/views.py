@@ -9,8 +9,8 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy, reverse
 
 # this app
-from .models import Application, InformationClassification, CloudQuestionnaire #, PrivacyAssessment, NonFunctionals
-from .forms import ApplicationForm, InformationClassificationForm, CloudQuestionnaireForm #, PrivacyAssessmentForm, NonFunctionalsForm
+from .models import Application, InformationClassification, CloudQuestionnaire, CloudICTBriefCloudRiskAssessment #, PrivacyAssessment, NonFunctionals
+from .forms import ApplicationForm, InformationClassificationForm, CloudQuestionnaireForm, CloudICTBriefCloudRiskAssessmentForm #, PrivacyAssessmentForm, NonFunctionalsForm
 
 # Create your views here.
 class ApplicationList(ListView):
@@ -54,6 +54,11 @@ class ApplicationDetail(DetailView):
             context['cl'] = True
         else:
             context['cl'] = False
+        
+        if hasattr(a, 'cloudictbriefcloudriskassessment'):
+            context['bc'] = True
+        else:
+            context['bc'] = False
         # context['pa'] = ApplicationDetail.privacy_assessment_exists(self)
         # context['nf'] = ApplicationDetail.non_functional_assessment_exists(self)
         return context
@@ -155,6 +160,39 @@ class CloudQuestionnaireDelete(SuccessMessageMixin, DeleteView):
     model = CloudQuestionnaire
     success_url = reverse_lazy('assessment:application-list')
     success_message = "Cloud Questionnaire deleted!"
+
+
+class CloudICTBriefCloudRiskAssessmentDetail(DetailView):
+    model = CloudICTBriefCloudRiskAssessment
+
+
+class CloudICTBriefCloudRiskAssessmentCreate(SuccessMessageMixin, CreateView):
+    model = CloudICTBriefCloudRiskAssessment
+    form_class = CloudICTBriefCloudRiskAssessmentForm
+    success_message = 'ICT Brief Cloud Risk Assessment successfully saved!'
+    success_url = reverse_lazy('assessment:application-list')
+
+    def get_initial(self):
+        initial = super(CloudICTBriefCloudRiskAssessmentCreate, self).get_initial()
+        initial['app'] = self.kwargs['pk']
+        return initial
+
+
+class CloudICTBriefCloudRiskAssessmentUpdate(SuccessMessageMixin, UpdateView):
+    model = CloudICTBriefCloudRiskAssessment
+    form_class = CloudICTBriefCloudRiskAssessmentForm
+    success_message = 'ICT Brief Cloud Risk Assessment successfully updated!'
+
+    def get_success_url(self):
+        return reverse('assessment:cloudictbriefcloudriskassessment-detail', kwargs={'pk': self.kwargs['pk']})
+
+
+class CloudICTBriefCloudRiskAssessmentDelete(SuccessMessageMixin, DeleteView):
+    model = CloudICTBriefCloudRiskAssessment
+    success_url = reverse_lazy('assessment:application-list')
+    success_message = "ICT Brief Cloud Risk Assessment deleted!"
+
+
 # class PrivacyAssessmentDetail(DetailView):
 #     model = PrivacyAssessment
 
