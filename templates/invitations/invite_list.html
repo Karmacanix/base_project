@@ -1,0 +1,33 @@
+{% extends "site-base.html" %}
+
+{% load static %}
+{% load account %}
+{% load i18n %}
+
+{% block head_title %}{% trans "My Invites" %}{% endblock %}
+
+{% block content %}
+<div class="w3-container w3-half w3-margin-top">
+  <header class="w3-container">
+    <h1>{% trans "My Invites" %}</h1>
+  </header>
+  <div class="w3-container w3-card-4">
+    <br>
+    <ul> My invites
+      {% for invite in my_invites %}
+        <li>{{ forloop.counter }}: {{ invite }}</li>
+      {% endfor %}
+    </ul>
+    <ul> Email admin
+      {% for user in invite_email_list %}
+        <li>{{ forloop.counter }}: {{ user }}</li>
+      {% endfor %}
+    </ul>
+    <ul> System Users
+      {% for user in user_list %}
+        <li>{{ forloop.counter }}: {{user.username}}</li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+{% endblock %}

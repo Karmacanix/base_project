@@ -11,20 +11,20 @@
   <h1>{% trans "Sign In" %}</h1>
 </header>
 
-<p>{% blocktrans %}If you don't have a user account? Click to <a href="{{ signup_url }}">sign up!</a>{% endblocktrans %}</p>
+<p>{% blocktrans %}If you don't have a user account? Click here to <a href="{{ signup_url }}">sign up!</a>{% endblocktrans %}</p>
 
 <form class="login w3-container w3-card-4" method="POST" action="{% url 'account_login' %}">
   {% csrf_token %}
   <br/>
   <table>
-    <tbody>
-      {% for field in form %}     
-        <tr>
-          <td>{{ field.label }}</td>
-          <td><div class="w3-padding">{{ field }}</div></td>
-        </tr>
-      {% endfor %}
-    </tbody>
+  	<tbody>
+  		{% for field in form %}  		
+	  		<tr>
+	  			<td>{{ field.label }}</td>
+	  			<td><div class="w3-padding">{{ field }}</div></td>
+	  		</tr>
+  		{% endfor %}
+  	</tbody>
   </table>
   {% if redirect_field_value %}
   <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
